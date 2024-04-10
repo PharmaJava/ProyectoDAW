@@ -11,8 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $usuarioModel = new Usuario();
     $usuario = $usuarioModel->login($username, $password);
 
-    if ($usuario) {
-        $_SESSION['username'] = $usuario->username; // Asegúrate de que 'username' es el campo correcto
+    if ($usuario && isset($usuario->usuario_id)) {
+        $_SESSION['username'] = $usuario->username; // Asumiendo que 'username' es el campo correcto
+        $_SESSION['usuario_id'] = $usuario->usuario_id; // Almacenar el usuario_id en la sesión
         header("Location: views/success.php");
         exit();
     } else {

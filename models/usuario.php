@@ -80,9 +80,9 @@ class Usuario {
 
   // Métodos adicionales
   public function save() {
-    $sql = "INSERT INTO Usuarios (username, password, nombre, apellidos, email, rol) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO Usuarios (username, password, nombre, apellidos, email, rol, usuario_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $this->db->prepare($sql);
-    $stmt->bind_param('ssssss', $this->username, $this->password, $this->nombre, $this->apellidos, $this->email, $this->rol);
+    $stmt->bind_param('ssssssi', $this->username, $this->password, $this->nombre, $this->apellidos, $this->email, $this->rol, $this->usuario_id);
     $result = $stmt->execute();
     $stmt->close();
     return $result;

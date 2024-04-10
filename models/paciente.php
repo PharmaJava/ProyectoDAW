@@ -86,13 +86,19 @@ class Paciente {
     
     // Método para guardar un paciente
     public function save() {
-        $sql = "INSERT INTO Paciente (nombre, apellidos, sexo, edad, peso, altura) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO Paciente (usuario_id, nombre, apellidos, sexo, edad, peso, altura,paciente_id) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param('sssidd', $this->nombre, $this->apellidos, $this->sexo, $this->edad, $this->peso, $this->altura);
+        if (!$stmt) {
+            return false;
+        }
+
+        $stmt->bind_param('isssiddi', $this->usuario_id, $this->nombre, $this->apellidos, $this->sexo, $this->edad, $this->peso, $this->altura,$this->paciente_id);
         $result = $stmt->execute();
         $stmt->close();
+
         return $result;
     }
+    
     
     // Otros métodos que necesites...
 }

@@ -13,29 +13,53 @@ class UsuarioController {
     $this->db = $db;
   }
 
-  public function save()
-  {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//   public function save()
+//   {
+//     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//       $usuario = new Usuario();
+//       $usuario->setUsername($_POST['username']);
+//       $usuario->setPassword($_POST['password']);
+//       $usuario->setNombre($_POST['nombre']);
+//       $usuario->setApellidos($_POST['apellidos']);
+//       $usuario->setEmail($_POST['email']);
+//       $usuario->setRol($_POST['rol']);
+//       $usuario->setUsuario_id($_POST['usuario_id']);
+
+//       $result = $usuario->save();
+
+//       if ($result) {
+//         // Inicia sesión automáticamente después del registro
+//         $this->login($_POST['username'], $_POST['password']);
+//     } else {
+//         $_SESSION['register'] = 'failed';
+//         header('Location: ../views/registro.php');
+//     }
+// }
+//   }
+public function save() {
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $usuario = new Usuario();
       $usuario->setUsername($_POST['username']);
-      $usuario->setPassword($_POST['password']);
+      $usuario->setPassword($_POST['password']); 
       $usuario->setNombre($_POST['nombre']);
       $usuario->setApellidos($_POST['apellidos']);
       $usuario->setEmail($_POST['email']);
       $usuario->setRol($_POST['rol']);
 
+      // Intenta guardar el nuevo usuario en la base de datos
       $result = $usuario->save();
 
       if ($result) {
-        // Registro exitoso, ahora inicia sesión automáticamente
-        $this->login($_POST['username'], $_POST['password']);
+          // Si el registro es exitoso, inicia sesión automáticamente con los datos del nuevo usuario
+          $this->login($_POST['username'], $_POST['password']);
       } else {
-        $_SESSION['register'] = 'failed';
-        header('Location: ../views/registro.php');
+          // Si hay un error en el registro, redirecciona de vuelta al formulario de registro
+          $_SESSION['register'] = 'failed';
+          header('Location: ../views/registro.php');
+          exit();
       }
-    }
   }
-
+}
   public function login()
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

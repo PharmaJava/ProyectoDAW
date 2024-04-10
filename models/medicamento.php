@@ -14,11 +14,14 @@ class Medicamento {
     private $fecha_caducidad;
     private $posologia;
     private $via_administracion;
-
+    private $paciente_id;
     public function __construct() {
         $this->db = Database::connect();
     }
 
+    function getPacienteId() {
+        return $this->paciente_id;
+    }
     // Getters
     function getMedicamentoId() {
         return $this->medicamento_id;
@@ -61,6 +64,10 @@ class Medicamento {
     }
 
     // Setters
+    function setPacienteId($paciente_id) {
+        $this->paciente_id = $paciente_id;
+    }
+
     function setMedicamentoId($medicamento_id) {
         $this->medicamento_id = $medicamento_id;
     }
@@ -102,9 +109,9 @@ class Medicamento {
     }
 
     public function save() {
-        $sql = "INSERT INTO Medicamento (nombre_medicamento, fecha_inicio, fecha_fin, uso, codigo_nacional, lote, fecha_caducidad, posologia, via_administracion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO Medicamento (medicamento_id,paciente_id,nombre_medicamento, fecha_inicio, fecha_fin, uso, codigo_nacional, lote, fecha_caducidad, posologia, via_administracion) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("sssssssss", $this->nombre_medicamento, $this->fecha_inicio, $this->fecha_fin, $this->uso, $this->codigo_nacional, $this->lote, $this->fecha_caducidad, $this->posologia, $this->via_administracion);
+        $stmt->bind_param("iisssssssss", $this->medicamento_id, $this->paciente_id,$this->nombre_medicamento, $this->fecha_inicio, $this->fecha_fin, $this->uso, $this->codigo_nacional, $this->lote, $this->fecha_caducidad, $this->posologia, $this->via_administracion);
         $result = $stmt->execute();
         $stmt->close();
         return $result;
