@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medicamentos Registrados</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
     <div class="container">
         <?php
-        require_once __DIR__ . '/../config/db.php';
-        require_once '../models/Medicamento.php';
-        require_once '../models/Paciente.php';
+       require_once __DIR__ . '/../../config/db.php';
+       require_once __DIR__ . '/../../models/medicamento.php';
+       require_once __DIR__ . '/../../models/paciente.php';
 
         session_start();
 
@@ -68,7 +68,7 @@
         }
         echo "<br>";
         ?>
-        <a href="success.php" class="btn">Volver</a>
+        <a href="AdminDashboard.php" class="btn">Volver</a>
     </div>
 </body>
 </html>

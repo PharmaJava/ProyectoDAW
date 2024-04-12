@@ -138,5 +138,30 @@ class Medicamento {
         $stmt->close();
         return $medicamentos;
     }
-    // Aquí puedes agregar más métodos según tus necesidades, como por ejemplo métodos para buscar o actualizar medicamentos.
+
+    public function borrarMedicamento($medicamento_id) {
+        $sql = "DELETE FROM Medicamento WHERE medicamento_id = ?";
+        $stmt = $this->db->prepare($sql);
+        if (!$stmt) {
+            return false; // No se pudo preparar la declaración
+        }
+        $stmt->bind_param('i', $medicamento_id);
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
+    }
+
+    public function actualizarMedicamento($medicamento_id, $nombre_medicamento, $fecha_inicio, $fecha_fin, $uso) {
+        $sql = "UPDATE Medicamento SET nombre_medicamento = ?, fecha_inicio = ?, fecha_fin = ?, uso = ? WHERE medicamento_id = ?";
+        $stmt = $this->db->prepare($sql);
+        if (!$stmt) {
+            echo "Error preparing statement: " . $this->db->error;
+            return false;
+        }
+        
+        $stmt->bind_param('ssssi', $nombre_medicamento, $fecha_inicio, $fecha_fin, $uso, $medicamento_id);
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
+    }
 }

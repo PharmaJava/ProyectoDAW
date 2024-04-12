@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pacientes Registrados</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
     <div class="container">
         <?php
-        require_once __DIR__ . '/../config/db.php';
-        require_once '../models/Paciente.php';
+        require_once __DIR__ . '/../../config/db.php';
+        require_once __DIR__ . '/../../models/Paciente.php';
 
         session_start();
 
         if (!isset($_SESSION['usuario_id'])) {
             // Si el usuario no está autenticado, redirige al inicio de sesión
-            header('Location: index.php');
+            header('Location: ../../index.php');
             exit();
         }
 
@@ -63,7 +63,7 @@
         echo "<br>";
         ?>
         
-        <a href="success.php" class="btn">Volver</a>
+        <a href="AdminDashboard.php" class="btn">Volver</a>
     </div>
 </body>
 </html>

@@ -8,10 +8,15 @@
 
 body{
     background: url(../img/logo.png);
+    display: flex; /* Utiliza flexbox para el posicionamiento */
+    flex-direction: column; /* Organiza los elementos en una columna */
+    align-items: center; /* Centra horizontalmente */
+    height: 100vh; /* Asegúrate de que el body tome toda la altura de la pantalla */
 }
 
 a{
     color: #01B1EA;
+    text-decoration: none; /* Elimina subrayado de todos los enlaces */
 }
 
 a:visited{
@@ -23,11 +28,11 @@ a:hover{
 }
 
 .alert_green{
-    color:green;
+    color: green;
 }
 
 .alert_red{
-    color:red;
+    color: red;
 }
 
 table{
@@ -45,18 +50,6 @@ td{
     width: 100px;
 }
 
-
-body {
-    display: flex; /* Utiliza flexbox para el posicionamiento */
-    flex-direction: column; /* Organiza los elementos en una columna */
-    align-items: center; /* Centra horizontalmente */
-    height: 100vh; /* Asegúrate de que el body tome toda la altura de la pantalla */
-}
-  
-  #container {
-    width: 80%;
-  }
-
 /*HEADER*/
 
 #header{
@@ -67,16 +60,16 @@ body {
 #logo{
     padding: 20px;
     margin-left: 20px;
-    float:left;
+    float: left;
 }
 
 #logo img{
-    float:left;
+    float: left;
     height: 100px;
 }
 
 #logo a{
-    float:left;
+    float: left;
     font-size: 40px;
     letter-spacing: 4px;
     font-family: 'Open Sans', Helvetica, Arial;
@@ -95,15 +88,14 @@ body {
 }
 
 /*MENU*/
+
 #menu{
-    clear:both;
+    clear: both;
     background: #222;
     color: white;
     height: 55px;
     border-bottom: 4px solid #01B1EA;
 }
-
-
 
 #menu ul{
     list-style: none;
@@ -114,7 +106,7 @@ body {
 
 #menu ul li{
     line-height: 55px;
-    float:left;
+    float: left;
     border-right: 1px solid #363636;
 }
 
@@ -128,14 +120,49 @@ body {
 }
 
 #menu a:first-child{
-   border-left: 1px solid #363636; 
+   border-left: 1px solid #363636;
 }
 
 #menu a:hover{
     background: #01B1EA;
 }
 
+/* Botones y enlaces como botones */
+input[type="submit"],
+button,
+.button,
+a.btn {
+    display: inline-block;
+    border-radius: 2px;
+    padding: 5px 10px;
+    color: white;
+    background: #2979CD;
+    border: 1px solid #11608E;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 300ms, border-color 300ms;
+}
+
+input[type="submit"]:hover,
+button:hover,
+.button:hover,
+a.btn:hover {
+    background: #1579b5;
+    border-color: #0f5c9d;
+}
+
+.button-red,
+a.btn-red {
+    background: red;
+    border: 1px solid #cf1717;
+}
+
+a.btn:visited {
+    color: white;
+}
+
 /*CONTENT*/
+
 #content{
     margin: 0px auto;
     overflow: hidden;
@@ -143,11 +170,12 @@ body {
 }
 
 /*BARRA LATERAL*/
+
 #lateral{
     width: 22%;
     min-height: 500px;
     float: left;
-    margin-top:20px;
+    margin-top: 20px;
     margin-left: 10px;
 }
 
@@ -184,113 +212,15 @@ body {
     margin-bottom: 5px;
 }
 
-/*FORMS*/
-
-/* Separa los formularios de inicio de sesión y registro */
-#login-form,
-#register-form {
-    margin-bottom: 2rem; /* Espacio entre los formularios */
-}
-
-/* Centra los títulos de los formularios */
-.form-title {
-    text-align: center;
-    margin-bottom: 1rem; /* Espacio debajo del título */
-}
-.form-container {
-    width: 300px; /* Ancho del formulario */
-    margin: 1rem auto; /* Espacio arriba y abajo, auto para centrar horizontalmente */
-    padding: 20px; /* Espacio interior */
-    background: #fff; /* Fondo blanco para el formulario */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    border-radius: 8px; /* Bordes redondeados */
-}
-
-label,
-input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="number"],
-select, textarea{
-    display:block;
-    width: 95%;
-    margin-top: 2px;
-    margin-bottom: 2px;
-}
-
-input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="number"],
-select, textarea{
-    border: 1px solid #C9C9C9;
-    box-shadow: 0px 0px 2px #ccc inset;
-    background: white;
-    padding: 2px;
-    color: gray;
-    transition: all 300ms;
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="email"]:focus{
-    border: 1px solid #1579b5;
-    color: black;
-}
-
-input[type="button"],
-input[type="submit"],
-button, .button{
-    display: block;
-    border-radius: 2px;
-    width: auto;
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    color: white;
-    background: #2979CD;
-    border: 1px solid #11608E;
-    cursor:pointer;
-}
-
-.button{
-    background: #33AE3D;
-    color: white !important;
-    text-decoration: none;
-}
-
-.button-small{
-    width: 120px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.button-gestion{
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.button-red{
-    background: red;
-     border: 1px solid #cf1717;
-}
-
-label, 
-input[type="button"],
-input[type="submit"],
-button{
-    display:block;
-    margin-top: 10px;
-}
-
 /*CENTRAL*/
+
 #central{
     width: 72%;
     min-height: 500px;
     float: right;
     border-left: 1px solid #ccc;
     box-shadow: -5px -1px 5px #ddd;
-    padding:25px;
+    padding: 25px;
 }
 
 #central h1{
@@ -304,16 +234,14 @@ button{
     padding-top: 0px;
 }
 
-
-
 /*FOOTER*/
+
 #footer{
     clear: both;
     text-align: center;
-    padding-top:10px;
+    padding-top: 10px;
     padding-bottom: 10px;
     color: white;
     background: #222222;
     border-top: 4px solid #01B1EA;
 }
-

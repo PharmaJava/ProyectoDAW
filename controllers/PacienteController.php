@@ -8,7 +8,6 @@ class PacienteController {
     public function save() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['usuario_id'])) {
             $paciente = new Paciente();
-            // Asegúrate de que 'usuario_id' está disponible en $_SESSION
             $paciente->setUsuario_id($_SESSION['usuario_id']);
             $paciente->setNombre($_POST['nombre']);
             $paciente->setApellidos($_POST['apellidos']);
@@ -20,9 +19,15 @@ class PacienteController {
 
             $result = $paciente->save();
 
+            // Comprobación del rol del usuario para decidir la redirección adecuada
             if ($result) {
-                header('Location: ../views/success.php');
-                exit();
+                if ($_SESSION['rol'] === 'admin') {
+                    header('Location: ../views/admin/AdminDashboard.php'); // Redirige a los admins al dashboard de admin
+                    exit();
+                } else {
+                    header('Location: ../views/success.php'); // Redirige a usuarios no admins a la página de éxito
+                    exit();
+                }
             } else {
                 $_SESSION['error_registro'] = "Hubo un error al registrar el paciente.";
                 header('Location: ../views/paciente.php');
@@ -39,3 +44,4 @@ if (isset($_POST['submit'])) {
     $controller = new PacienteController();
     $controller->save();
 }
+?>

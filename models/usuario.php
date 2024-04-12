@@ -109,24 +109,42 @@ class Usuario {
   }
 
   public function login($username, $password) {
-    $result = false;
     $sql = "SELECT * FROM Usuarios WHERE username = ?";
     $stmt = $this->db->prepare($sql);
-    if ($stmt) {
-        $stmt->bind_param('s', $username);
-        $stmt->execute();
-        $usuario = $stmt->get_result()->fetch_object();
-
-        // Verificar la contraseña
-        if ($usuario && password_verify($password, $usuario->password)) {
-            $result = $usuario;
-        }
-        $stmt->close();
+    if (!$stmt) {
+        echo "Error preparing statement: " . $this->db->error;
+        return false;
     }
-    return $result;
-}
+    $stmt->bind_param('s', $username);
+    $stmt->execute();
+    $usuario = $stmt->get_result()->fetch_object();
 
-  // ...
+    if ($usuario) {
+        // Verificar si la contraseña es hash o no
+        if (password_verify($password, $usuario->password)) {
+            $stmt->close();
+            return $usuario; // Retorna el objeto usuario si el login es exitoso
+        } elseif ($password === $usuario->password) {
+            // La contraseña coincide directamente, actualizamos a hash
+            $this->updatePasswordHash($usuario->usuario_id, $password);
+            $stmt->close();
+            return $usuario; // Retorna el objeto usuario
+        }
+    }
+    $stmt->close();
+    return false; // Retorna falso si el login falla
+}
+  /// Método para actualizar la contraseña a hash
+public function updatePasswordHash($usuario_id, $password) {
+  $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 4]);
+  $sql = "UPDATE Usuarios SET password = ? WHERE usuario_id = ?";
+  $stmt = $this->db->prepare($sql);
+  if ($stmt) {
+      $stmt->bind_param('si', $hash, $usuario_id);
+      $stmt->execute();
+      $stmt->close();
+  }
+}
 }
 
 ?>

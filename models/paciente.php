@@ -130,7 +130,18 @@ public function borrarPaciente($paciente_id) {
     $stmt->close();
     return $result;
 }
-
+public function all() {
+    $sql = "SELECT * FROM Paciente"; // Asegúrate que el nombre de la tabla es correcto
+    $result = $this->db->query($sql);
+    
+    $pacientes = array();
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_object('Paciente')) {
+            $pacientes[] = $row;
+        }
+    }
+    return $pacientes;
+}
 // En la clase Paciente
 
 public function actualizarPaciente($paciente_id, $nombre, $apellidos, $sexo, $edad, $peso, $altura) {

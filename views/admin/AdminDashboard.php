@@ -1,7 +1,8 @@
 
 <?php  // Esto asegura que la sesión está iniciada 
-require_once __DIR__ . '/../config/db.php';
-require_once '../models/Usuario.php';
+require_once __DIR__ . '/../../config/db.php';
+require_once __DIR__ . '/../../models/Usuario.php';
+
 session_start();
 ?>
 <!DOCTYPE html>
@@ -9,7 +10,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Registro Exitoso</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
     <div class="container">
@@ -19,7 +20,7 @@ session_start();
         <h1>Bienvenido!</h1>
     <?php endif; ?>
     <br>
-        <p>Selecciona una opción para continuar.</p>
+        <p>ADMIN DASHBOARD.</p>
         <br>
         <div class="next-steps">
             <a href="Paciente.php" class="button">Registrar a un paciente</a>
@@ -34,10 +35,17 @@ session_start();
             <br>
             <a href="OtrosMedicamentos.php" class="button">Si tomas otro medicamento aunque no te haya dado reacción, haz clic aquí</a>
             <br>
+            <a href="AdminPacientes.php" class="button">Administrar Pacientes</a>
+            <br>
+            <a href="AdminMedicamentos.php" class="button">Administrar Medicamentos</a>
+            <br>
+            <a href="AdminReacciones.php" class="button">Administrar Reacciones Adversas</a>
+            <br>
+            <a href="AdminOtrosMedicamentos.php" class="button">Administrar Otros Medicamentos</a>
+            <br>
             
-            <a href="../index.php" class="button">Volver al Inicio</a>
             <!-- Botón de cerrar sesión -->
-            <form action="logout.php" method="post">
+            <form action="../logout.php" method="post">
                 <button type="submit" class="button">Cerrar Sesión</button>
             </form>
         </div>
