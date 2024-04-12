@@ -9,10 +9,14 @@
     <div class="container">
         <h1>Registro de Reacciones Adversas a Medicamentos</h1>
         <form action="../controllers/ReaccionesController.php" method="post">
-            <!-- Asumiendo que ya conoces el medicamento y el paciente -->
+        
             <input type="hidden" name="medicamento_id" value="ID_DEL_MEDICAMENTO">
-            <input type="hidden" name="paciente_id" value="ID_DEL_PACIENTE">
+            <label for="paciente_id">ID del Paciente:</label>
+            <input type="text" id="paciente_id" name="paciente_id" required>
             
+            <label for="medicamento_id">ID del Medicamento Registrado:</label>
+            <input type="text" id="medicamento_id" name="medicamento_id" required>
+
             <label for="sintoma">Síntoma:</label>
             <textarea id="sintoma" name="sintoma" required></textarea>
 
@@ -34,6 +38,7 @@
             <textarea id="otros_datos" name="otros_datos"></textarea>
 
             <button type="submit" name="submit">Registrar Reacción</button>
+            <a href="success.php" class="btn">Volver</a>
         </form>
     </div>
 </body>

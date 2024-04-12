@@ -18,14 +18,23 @@ session_start();
     <?php else: ?>
         <h1>Bienvenido!</h1>
     <?php endif; ?>
+    <br>
         <p>Selecciona una opción para continuar.</p>
-
+        <br>
         <div class="next-steps">
             <a href="Paciente.php" class="button">Registrar a un paciente</a>
+            <br>
+            <a href="PacientesRegistrados.php" class="button">Paciente que has registrado</a>
+            <br>
             <a href="Medicamento.php" class="button">Medicamento que dió la reacción</a>
-            <a href="OtrosMedicamentos.php" class="button">Si tomas otro medicamento aunque no te haya dado reacción, haz clic aquí</a>
+            <br>
+            <a href="MedicamentosRegistrados.php" class="button">Medicamento que has registrado</a>
+            <br>
             <a href="reacciones.php" class="button">Registrar la reacción adversa</a>
-
+            <br>
+            <a href="OtrosMedicamentos.php" class="button">Si tomas otro medicamento aunque no te haya dado reacción, haz clic aquí</a>
+            <br>
+            
             <a href="index.php" class="button">Volver al Inicio</a>
             <!-- Botón de cerrar sesión -->
             <form action="logout.php" method="post">

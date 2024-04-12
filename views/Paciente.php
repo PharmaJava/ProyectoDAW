@@ -35,6 +35,7 @@
             <input type="text" id="altura" name="altura" required>
 
             <input type="submit" name="submit" value="Registrar">
+            <a href="success.php" class="btn">Volver</a>
         </form>
     </div>
 </body>

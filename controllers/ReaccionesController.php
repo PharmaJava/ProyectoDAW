@@ -18,7 +18,7 @@ class ReaccionesController {
             $reaccion->setFechaInicio($_POST['fecha_inicio']);
             $reaccion->setFechaFin($_POST['fecha_fin']);
             $reaccion->setEstadoActual($_POST['estado_actual']);
-            $reaccion->setOtrosDatosInteres($_POST['otros_datos_interes']);
+            $reaccion->setOtrosDatosInteres($_POST['otros_datos']);
 
             // Intentar guardar la reacción en la base de datos
             $result = $reaccion->save();

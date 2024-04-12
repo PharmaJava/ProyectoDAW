@@ -91,17 +91,7 @@ class Reacciones {
         return $result;
     }
     
-    // Método para guardar una reacción en la base de datos
-    // public function save() {
-    //     $sql = "INSERT INTO reacciones (sintoma, fecha_inicio, fecha_fin, estado_actual, otros_datos_interes) VALUES (?, ?, ?, ?, ?,)";
-    //     $stmt = $this->db->prepare($sql);
-    //     $stmt->bind_param("sssss", $this->sintoma, $this->fecha_inicio, $this->fecha_fin, $this->estado_actual, $this->otros_datos_interes);
-    //     $result = $stmt->execute();
-    //     $stmt->close();
-    //     return $result;
-    // }
 
-    // Aquí podrías añadir más métodos relacionados con 'Reacciones'
 }
 
 ?>

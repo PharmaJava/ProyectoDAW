@@ -116,6 +116,27 @@ class Medicamento {
         $stmt->close();
         return $result;
     }
-
+    
+    public function getMedicamentosByPacienteID($paciente_id) {
+        $sql = "SELECT * FROM Medicamento WHERE paciente_id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $paciente_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $medicamentos = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $medicamentos;
+    }
+    
+    public function getPacienteById($medicamento_id) {
+        $sql = "SELECT * FROM Medicamento WHERE medicamento_id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $medicamento_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $medicamentos = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $medicamentos;
+    }
     // Aquí puedes agregar más métodos según tus necesidades, como por ejemplo métodos para buscar o actualizar medicamentos.
 }

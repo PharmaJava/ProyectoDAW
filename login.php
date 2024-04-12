@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     } else {
         $_SESSION['error_login'] = 'Usuario o contraseña incorrectos';
-        header("Location: views/index.php");
+        header("Location: ../login.php");
         exit();
     }
 }

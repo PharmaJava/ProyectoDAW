@@ -19,7 +19,7 @@ class MedicamentoController {
             $medicamento->setFechaCaducidad($_POST['fecha_caducidad']);
             $medicamento->setPosologia($_POST['posologia']);
             $medicamento->setViaAdministracion($_POST['via_administracion']);
-
+            $medicamento->setPacienteid($_POST['paciente_id']);
             // Guardar el medicamento en la base de datos
             $result = $medicamento->save();
 

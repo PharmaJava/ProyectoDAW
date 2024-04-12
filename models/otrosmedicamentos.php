@@ -3,7 +3,7 @@ require_once '../config/db.php';// Asegúrate de que la ruta es correcta
 
 class OtrosMedicamentos {
     private $id;
-    private $pacienteId;
+    private $paciente_id;
     private $nombreMedicamento;
     private $posologia;
     private $fechaInicio;
@@ -20,8 +20,8 @@ class OtrosMedicamentos {
         return $this->id;
     }
 
-    public function getPacienteId() {
-        return $this->pacienteId;
+    function getPacienteId() {
+        return $this->paciente_id;
     }
 
     public function getNombreMedicamento() {
@@ -49,8 +49,8 @@ class OtrosMedicamentos {
         $this->id = $id;
     }
 
-    public function setPacienteId($pacienteId) {
-        $this->pacienteId = $pacienteId;
+    function setPacienteId($paciente_id) {
+        $this->paciente_id = $paciente_id;
     }
 
     public function setNombreMedicamento($nombreMedicamento) {
@@ -75,9 +75,9 @@ class OtrosMedicamentos {
 
     // Método para guardar en la base de datos
     public function save() {
-        $sql = "INSERT INTO OtrosMedicamentos (nombre_medicamento, posologia, fecha_inicio, fecha_fin, uso_medicacion) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO OtrosMedicamentos (nombre_medicamento, posologia, fecha_inicio, fecha_fin, uso_medicacion,paciente_id) VALUES (?, ?, ?, ?, ?,?)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("sssss", $this->nombreMedicamento, $this->posologia, $this->fechaInicio, $this->fechaFin, $this->usoMedicacion);
+        $stmt->bind_param("sssssi", $this->nombreMedicamento, $this->posologia, $this->fechaInicio, $this->fechaFin, $this->usoMedicacion,$this->paciente_id);
         $result = $stmt->execute();
         $stmt->close();
         return $result;

@@ -98,7 +98,74 @@ class Paciente {
 
         return $result;
     }
-    
+
+
+public function getPacientesByUsuarioId($usuario_id) {
+    $sql = "SELECT * FROM Paciente WHERE usuario_id = ?";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bind_param("i", $usuario_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $pacientes = $result->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+    return $pacientes;
+}
+
+public function getPacienteById($paciente_id) {
+    $sql = "SELECT * FROM Paciente WHERE paciente_id = ?";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bind_param("i", $paciente_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $pacientes = $result->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+    return $pacientes;
+}
+
+public function borrarPaciente($paciente_id) {
+    $sql = "DELETE FROM Paciente WHERE paciente_id = ?";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bind_param("i", $paciente_id);
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+}
+
+// En la clase Paciente
+
+public function actualizarPaciente($paciente_id, $nombre, $apellidos, $sexo, $edad, $peso, $altura) {
+
+    // Preparar la consulta
+$query = "UPDATE Paciente SET nombre = :nombre, apellidos = :apellidos, sexo = :sexo, edad = :edad, peso = :peso, altura = :altura WHERE paciente_id = :paciente_id";
+
+// Preparar la declaración
+$statement = $this->conn->prepare($query);
+
+// Verificar si la preparación de la declaración fue exitosa
+if (!$statement) {
+    // Retornar false si la preparación de la declaración falló
+    return false;
+}
+
+// Vincular los parámetros
+$statement->bindParam(':nombre', $nombre);
+$statement->bindParam(':apellidos', $apellidos);
+$statement->bindParam(':sexo', $sexo);
+$statement->bindParam(':edad', $edad, PDO::PARAM_INT);
+$statement->bindParam(':peso', $peso);
+$statement->bindParam(':altura', $altura);
+$statement->bindParam(':paciente_id', $paciente_id, PDO::PARAM_INT);
+
+// Ejecutar la declaración
+if ($statement->execute()) {
+    // La actualización fue exitosa, retornar true
+    return true;
+} else {
+    // La actualización falló, retornar false
+    return false;
+}
+
     
     // Otros métodos que necesites...
+}
 }

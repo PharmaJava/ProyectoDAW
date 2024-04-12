@@ -1,4 +1,3 @@
-<!-- Formulario para registrar un medicamento -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,6 +8,9 @@
 <body>
     <h1>Registrar Medicamento</h1>
     <form action="../controllers/MedicamentoController.php" method="post">
+        <label for="paciente_id">ID del Paciente:</label>
+        <input type="number" id="paciente_id" name="paciente_id" required>
+
         <label for="nombre_medicamento">Nombre del Medicamento:</label>
         <input type="text" id="nombre_medicamento" name="nombre_medicamento" required>
 
@@ -42,6 +44,8 @@
         </select>
 
         <input type="submit" name="submit" value="Registrar Medicamento">
+        <a href="success.php" class="btn">Volver</a
+        
     </form>
 </body>
 </html>

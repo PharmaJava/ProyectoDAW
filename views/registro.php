@@ -31,6 +31,7 @@
     </select>
 
     <input type="submit" name="submit" value="Registrar">
+    <a href="index.php" class="btn">Volver</a>
   </form>
 </body>
 </html>

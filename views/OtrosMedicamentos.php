@@ -9,8 +9,8 @@
     <div class="container">
         <h1>Registro de Otros Medicamentos</h1>
         <form action="../controllers/OtrosMedicamentosController.php" method="post">
-            <!-- Aquí asumo que ya tienes una manera de saber el id del paciente -->
-            <input type="hidden" name="paciente_id" value="<?php echo $_SESSION['paciente_id']; ?>">
+            <label for="paciente_id">ID del Paciente:</label>
+            <input type="text" id="paciente_id" name="paciente_id" required>
 
             <label for="nombre_medicamento">Nombre del Medicamento:</label>
             <input type="text" id="nombre_medicamento" name="nombre_medicamento" required>
@@ -28,6 +28,7 @@
             <textarea id="uso_medicacion" name="uso_medicacion" required></textarea>
 
             <button type="submit" name="submit">Registrar y volver al menu</button>
+            <a href="success.php" class="btn">Volver</a>
         </form>
     </div>
 </body>
