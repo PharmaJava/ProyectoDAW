@@ -6,14 +6,33 @@
     font-family: sans-serif, Helvetica, Arial;
 }
 
-body{
-    background: url(../img/logo.png);
-    display: flex; /* Utiliza flexbox para el posicionamiento */
-    flex-direction: column; /* Organiza los elementos en una columna */
-    align-items: center; /* Centra horizontalmente */
-    height: 100vh; /* Asegúrate de que el body tome toda la altura de la pantalla */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-image: url('img.jpg');
+    background-size: contain;
+    background-repeat:repeat;
+    background-attachment: fixed;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
 }
-
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.3); /* Ajusta la transparencia con el último valor (alpha) */
+    z-index: -1; /* Envía el pseudo-elemento detrás del contenido */
+}
 a{
     color: #01B1EA;
     text-decoration: none; /* Elimina subrayado de todos los enlaces */

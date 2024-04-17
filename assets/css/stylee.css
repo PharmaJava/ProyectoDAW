@@ -1,0 +1,345 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-image: url('img.jpg');
+    background-size: contain;
+    background-repeat:repeat;
+    background-attachment: fixed;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.3); /* Ajusta la transparencia con el último valor (alpha) */
+    z-index: -1; /* Envía el pseudo-elemento detrás del contenido */
+}
+
+.title-container {
+    text-align: center;
+    z-index: 1; 
+    background: rgba(255, 255, 255, 0.8); /* Fondo con transparencia para el contenedor */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    z-index: 1; 
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.8); /* Fondo con transparencia para el contenedor */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    z-index: 1; 
+    
+}
+
+
+
+h1, h2 {
+    margin-top: 0;
+}
+.login-container {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin: auto;
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
+    outline: none;
+    border-color: #2a7e84;
+}
+
+.login-container button {
+    width: 100%;
+    background-color: #4c95af;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background-color: #45a049;
+}
+
+.register-container {
+    margin-top: 20px;
+}
+
+.register-container a {
+    color:  #75bed8;
+    text-decoration: none;
+}
+
+.register-container a:hover {
+    text-decoration: underline;
+}
+
+.next-steps {
+    text-align: center;
+    padding: 20px;
+}
+
+.next-steps .button {
+    display: inline-block;
+    margin: 10px;
+    
+}
+
+/* Botones y enlaces como botones */
+input[type="submit"],
+button,
+.button,
+/* Botón de volver más pequeño */
+a.btn {
+    display: inline-block;
+    padding: 5px 10px; 
+    font-size: 0.8em; 
+    background: #2979CD;
+    color: white;
+    text-align: center;
+    border-radius: 5px; /* Redondear esquinas */
+    border: 1px solid #11608E;
+    transition: background-color 300ms, border-color 300ms;
+}
+
+a.btn:hover {
+    background: #1579b5;
+    border-color: #0f5c9d;
+}
+
+
+input[type="submit"]:hover,
+button:hover,
+.button:hover,
+a.btn:hover {
+    background: #1579b5;
+    border-color: #0f5c9d;
+}
+
+.button-red,
+a.btn-red {
+    background: red;
+    border: 1px solid #cf1717;
+}
+
+a.btn:visited {
+    color: white;
+}
+a{
+    color: #01B1EA;
+    text-decoration: none; /* Elimina subrayado de todos los enlaces */
+}
+*{
+    padding: 0px;
+    margin: 0px;
+    font-family: sans-serif, Helvetica, Arial;
+}
+
+
+/* Formularios */
+
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.full-page-form {
+    width: 90%; /* Ocupa el 90% del ancho de la ventana */
+    max-width: none; /* Elimina el ancho máximo si lo había */
+    margin: 2% auto; /* Mantiene un margen superior e inferior */
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    text-align: center;
+    overflow-x: auto; /* Permite desplazamiento horizontal si la tabla es muy ancha */
+}
+
+table {
+    width: 100%; /* Ancho de la tabla al 100% del contenedor */
+    /* Resto de estilos de tabla */
+}
+
+@media (max-width: 768px) {
+    .full-page-form {
+        width: 95%; /* Mayor ancho en dispositivos más pequeños para aprovechar el espacio */
+        margin: 2% auto;
+    }
+}
+
+
+.full-page-form form {
+    display: grid;
+    grid-template-columns: 1fr; 
+    grid-gap: 10px;
+}
+
+.full-page-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.full-page-form input[type="text"],
+.full-page-form input[type="number"],
+.full-page-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.full-page-form input[type="submit"] {
+    padding: 10px 0;
+    font-size: 16px;
+    color: white;
+    background-color: #4c95af;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.full-page-form input[type="submit"]:hover {
+    background-color: #3b7d89;
+}
+
+
+
+.button-back {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #4c95af;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    transition: color 0.3s;
+}
+
+.button-back:hover {
+    text-decoration: underline;
+}
+
+/* Estilos específicos para el formulario de registro de medicamento */
+.full-width-form {
+    width: 100%;
+    max-width: 1200px; /* Ajustar según la anchura deseada */
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    margin: 2% auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: left;
+    overflow-y: auto; /* Añadir scroll si es necesario */
+}
+
+.full-width-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.full-width-form form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* ajustar para más columnas */
+    gap: 15px;
+}
+
+.full-width-form input,
+.full-width-form textarea,
+.full-width-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.full-width-form input[type="submit"] {
+    margin-top: 20px;
+    width: auto;
+    padding: 10px 30px;
+}
+
+.full-width-form .btn {
+    width: auto; /* Tamaño automático basado en el contenido */
+    padding: 10px 20px; /* Menos relleno para botones más pequeños */
+    margin-top: 20px; /* Espacio adicional arriba */
+}
+
+table {
+    width: 100%; /* Ancho total del contenedor */
+    border-collapse: collapse; /* Para eliminar espacio entre celdas */
+    margin-top: 20px; /* Espacio antes de la tabla */
+}
+
+table, th, td {
+    border: 1px solid #ddd; /* Borde suave para la tabla y celdas */
+}
+
+th, td {
+    padding: 15px; /* Espaciado interno en celdas */
+    text-align: left; /* Alineación del texto */
+}
+
+th {
+    background-color: #f2f2f2; /* Fondo para las cabeceras */
+    color: #333; /* Color de texto para las cabeceras */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Fondo para las filas pares */
+}
+
+tr:hover {
+    background-color: #eaeaea; /* Fondo al pasar el mouse por encima */
+}
+
+/* Estilos para los botones dentro de la tabla */
+.btn-modificar, .btn {
+    margin-right: 5px; /* Espacio entre botones */
+}
+
+.btn-modificar {
+    background-color: #4CAF50; /* Color de fondo para botón modificar */
+    /* Agrega aquí más estilos si necesitas personalizar estos botones */
+}
+
+.btn {
+    background-color: #f44336; /* Color de fondo para botón borrar */
+    /* Agrega aquí más estilos si necesitas personalizar estos botones */
+}

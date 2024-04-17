@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Registro de Otros Medicamentos</title>
-    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/stylee.css">
 </head>
 <body>
-    <div class="container">
+<div class="full-page-form">
         <h1>Registro de Otros Medicamentos</h1>
         <form action="../controllers/OtrosMedicamentosController.php" method="post">
             <label for="paciente_id">ID del Paciente:</label>

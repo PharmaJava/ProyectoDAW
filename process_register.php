@@ -1,7 +1,7 @@
 <?php
-require_once '../config/db.php';  // Ajusta la ruta según sea necesario.
-require_once '../models/Usuario.php';  // Ajusta la ruta según sea necesario.
-require_once '../controllers/UsuarioController.php';  // Ajusta la ruta según sea necesario.
+require_once '../config/db.php';  
+require_once '../models/Usuario.php';
+require_once '../controllers/UsuarioController.php';  
 
 // Iniciar sesión para poder usar las variables de sesión.
 session_start();
@@ -15,6 +15,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $usuarioController->save();
 } else {
     // Redireccionar o manejar el error como se desee.
-    header('Location: registro.php');  // Ajusta la ruta según sea necesario.
+    header('Location: registro.php');  
     exit();
 }

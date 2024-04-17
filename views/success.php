@@ -9,7 +9,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Registro Exitoso</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/stylee.css">
 </head>
 <body>
     <div class="container">
@@ -42,5 +42,11 @@ session_start();
             </form>
         </div>
     </div>
+    </div>
+
+        <!-- Botón para volver al inicio, por si el usuario quiere salir del área de registro exitoso -->
+        <div class="next-steps">
+            <a href="../index.php" class="button">Volver al Inicio</a>
+        </div>
 </body>
 </html>

@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Registro de Medicamento</title>
-    <link rel="stylesheet" href="../assets/css/style.css"> <!-- Asegúrate de que la ruta sea correcta -->
+    <link rel="stylesheet" href="../assets/css/stylee.css"> <!-- Asegúrate de que la ruta sea correcta -->
 </head>
 <body>
+<div class="full-width-form">
     <h1>Registrar Medicamento</h1>
     <form action="../controllers/MedicamentoController.php" method="post">
         <label for="paciente_id">ID del Paciente:</label>
@@ -46,6 +47,7 @@
         <input type="submit" name="submit" value="Registrar Medicamento">
         <a href="success.php" class="btn">Volver</a
         
-    </form>
+</form>
+</div>
 </body>
 </html>

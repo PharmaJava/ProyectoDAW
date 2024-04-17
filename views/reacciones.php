@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Registro de Reacciones Adversas</title>
-    <link rel="stylesheet" href="../assets/css/style.css"> <!-- Ajusta la ruta según tu estructura de proyecto -->
+    <link rel="stylesheet" href="../assets/css/stylee.css"> <!-- Ajusta la ruta según tu estructura de proyecto -->
 </head>
 <body>
-    <div class="container">
+    <div class="full-page-form">
         <h1>Registro de Reacciones Adversas a Medicamentos</h1>
         <form action="../controllers/ReaccionesController.php" method="post">
         

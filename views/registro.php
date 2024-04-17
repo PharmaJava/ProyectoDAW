@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Registro de Usuario</title>
-  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/stylee.css">
 </head>
 <body>
+<div class="full-page-form">
   <h1>Formulario de Registro de Usuario</h1>
 
   <form action="../controllers/UsuarioController.php" method="post">
@@ -31,7 +32,8 @@
     </select>
 
     <input type="submit" name="submit" value="Registrar">
-    <a href="index.php" class="btn">Volver</a>
+    <a href="../index.php" class="btn">Volver</a>
   </form>
+</div>
 </body>
 </html>

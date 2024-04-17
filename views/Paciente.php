@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Registro de Paciente</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/stylee.css">
 </head>
 <body>
-    <div class="container">
+    <div class="full-page-form">
         <h1>Formulario de Registro de Paciente</h1>
         <form action="../controllers/PacienteController.php" method="post">
             <!-- Este input podría estar oculto si estás pasando el usuario_id directamente -->
