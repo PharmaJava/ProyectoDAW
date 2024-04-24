@@ -13,29 +13,6 @@ class UsuarioController {
     $this->db = $db;
   }
 
-//   public function save()
-//   {
-//     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//       $usuario = new Usuario();
-//       $usuario->setUsername($_POST['username']);
-//       $usuario->setPassword($_POST['password']);
-//       $usuario->setNombre($_POST['nombre']);
-//       $usuario->setApellidos($_POST['apellidos']);
-//       $usuario->setEmail($_POST['email']);
-//       $usuario->setRol($_POST['rol']);
-//       $usuario->setUsuario_id($_POST['usuario_id']);
-
-//       $result = $usuario->save();
-
-//       if ($result) {
-//         // Inicia sesión automáticamente después del registro
-//         $this->login($_POST['username'], $_POST['password']);
-//     } else {
-//         $_SESSION['register'] = 'failed';
-//         header('Location: ../views/registro.php');
-//     }
-// }
-//   }
 public function save() {
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $usuario = new Usuario();
@@ -81,7 +58,7 @@ public function save() {
       // Crear una instancia de Usuario
       $usuario = new Usuario();
       $usuario->setUsername($username);
-      $usuario->setPassword($password); // No necesitas hashear aquí si ya lo hiciste en setPassword
+      $usuario->setPassword($password); 
 
       // Iniciar sesión
       $loggedInUser = $usuario->login($_POST['username'], $_POST['password']);

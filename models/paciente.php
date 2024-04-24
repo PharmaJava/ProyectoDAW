@@ -111,25 +111,29 @@ public function getPacientesByUsuarioId($usuario_id) {
     return $pacientes;
 }
 
+// public function getPacienteById($paciente_id) {
+//     $sql = "SELECT * FROM Paciente WHERE paciente_id = ?";
+//     $stmt = $this->db->prepare($sql);
+//     $stmt->bind_param("i", $paciente_id);
+//     $stmt->execute();
+//     $result = $stmt->get_result();
+//     $pacientes = $result->fetch_all(MYSQLI_ASSOC);
+//     $stmt->close();
+//     return $pacientes;
 public function getPacienteById($paciente_id) {
     $sql = "SELECT * FROM Paciente WHERE paciente_id = ?";
     $stmt = $this->db->prepare($sql);
     $stmt->bind_param("i", $paciente_id);
     $stmt->execute();
     $result = $stmt->get_result();
-    $pacientes = $result->fetch_all(MYSQLI_ASSOC);
-    $stmt->close();
-    return $pacientes;
+    if ($result->num_rows == 1) {
+        return $result->fetch_assoc();
+    } else {
+        return null;
+    }
 }
 
-public function borrarPaciente($paciente_id) {
-    $sql = "DELETE FROM Paciente WHERE paciente_id = ?";
-    $stmt = $this->db->prepare($sql);
-    $stmt->bind_param("i", $paciente_id);
-    $result = $stmt->execute();
-    $stmt->close();
-    return $result;
-}
+
 public function all() {
     $sql = "SELECT * FROM Paciente"; // Asegúrate que el nombre de la tabla es correcto
     $result = $this->db->query($sql);
@@ -143,40 +147,56 @@ public function all() {
     return $pacientes;
 }
 // En la clase Paciente
-
 public function actualizarPaciente($paciente_id, $nombre, $apellidos, $sexo, $edad, $peso, $altura) {
+    $sql = "UPDATE Paciente SET nombre = ?, apellidos = ?, sexo = ?, edad = ?, peso = ?, altura = ? WHERE paciente_id = ?";
+    $stmt = $this->db->prepare($sql);
+    if (!$stmt) {
+        return false;
+    }
+    $stmt->bind_param('sssiddi', $nombre, $apellidos, $sexo, $edad, $peso, $altura, $paciente_id);
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+}  
 
-    // Preparar la consulta
-$query = "UPDATE Paciente SET nombre = :nombre, apellidos = :apellidos, sexo = :sexo, edad = :edad, peso = :peso, altura = :altura WHERE paciente_id = :paciente_id";
 
-// Preparar la declaración
-$statement = $this->conn->prepare($query);
+public function borrarPaciente($paciente_id) {
+    // Iniciar transacción
+    $this->db->begin_transaction();
 
-// Verificar si la preparación de la declaración fue exitosa
-if (!$statement) {
-    // Retornar false si la preparación de la declaración falló
-    return false;
-}
-
-// Vincular los parámetros
-$statement->bindParam(':nombre', $nombre);
-$statement->bindParam(':apellidos', $apellidos);
-$statement->bindParam(':sexo', $sexo);
-$statement->bindParam(':edad', $edad, PDO::PARAM_INT);
-$statement->bindParam(':peso', $peso);
-$statement->bindParam(':altura', $altura);
-$statement->bindParam(':paciente_id', $paciente_id, PDO::PARAM_INT);
-
-// Ejecutar la declaración
-if ($statement->execute()) {
-    // La actualización fue exitosa, retornar true
-    return true;
-} else {
-    // La actualización falló, retornar false
-    return false;
-}
-
+    try {
+        // Agregar aquí eliminaciones de otras tablas si son necesarias
     
-    // Otros métodos que necesites...
+        // Continuar con medicamentos y reacciones como antes
+        $sqlReacciones = "DELETE FROM reacciones WHERE medicamento_id IN (SELECT medicamento_id FROM medicamento WHERE paciente_id = ?)";
+        $stmtReacciones = $this->db->prepare($sqlReacciones);
+        $stmtReacciones->bind_param("i", $paciente_id);
+        $stmtReacciones->execute();
+        $stmtReacciones->close();
+
+        $sqlMedicamento = "DELETE FROM medicamento WHERE paciente_id = ?";
+        $stmtMedicamento = $this->db->prepare($sqlMedicamento);
+        $stmtMedicamento->bind_param("i", $paciente_id);
+        $stmtMedicamento->execute();
+        $stmtMedicamento->close();
+
+        // Borrar el paciente
+        $sqlPaciente = "DELETE FROM Paciente WHERE paciente_id = ?";
+        $stmtPaciente = $this->db->prepare($sqlPaciente);
+        $stmtPaciente->bind_param("i", $paciente_id);
+        $stmtPaciente->execute();
+        $stmtPaciente->close();
+
+        // Si todo fue bien, confirmar la transacción
+        $this->db->commit();
+        return true;
+    } catch (Exception $e) {
+        // Si algo falla, hacer rollback
+        $this->db->rollback();
+        error_log("Error durante la eliminación del paciente y sus dependencias: " . $e->getMessage());
+        return false;
+    }
 }
+
+
 }

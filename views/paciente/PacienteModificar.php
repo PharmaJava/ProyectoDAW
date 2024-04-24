@@ -9,14 +9,14 @@
 <body>
 <div class="full-page-form">
     <?php
-    require_once __DIR__ . '/../config/db.php'; // Asegúrate de que la conexión a la base de datos es correcta
-    require_once '../models/Paciente.php'; // Asegúrate de que la ruta al archivo es correcta
+    require_once __DIR__ . '/config/db.php'; // Asegúrate de que la conexión a la base de datos es correcta
+    require_once 'modelspaciente.php'; // Asegúrate de que la ruta al archivo es correcta
 
     session_start(); // Iniciar sesión
 
     if (!isset($_SESSION['usuario_id'])) {
         // Si no está autenticado, redirigir al inicio de sesión
-        header('Location: index.php');
+        header('Location: ../index.php');
         exit();
     }
 

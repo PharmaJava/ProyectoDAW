@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Paciente</title>
-    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/stylee.css">
 </head>
 <body>
-    <div class="container">
+<div class="full-page-form">
         <?php
-          require_once __DIR__ . '/../../config/db.php';
-          require_once __DIR__ . '/../../models/paciente.php';
+        require_once __DIR__ . '/../../config/db.php';
+        require_once __DIR__ . '/../../models/paciente.php';
 
         session_start();
 
@@ -83,11 +83,11 @@
             </div>
             <div class="form-group">
                 <label for="peso">Peso:</label>
-                <input type="number" id="peso" name="peso" value="<?php echo isset($paciente_info['peso']) ? $paciente_info['peso'] : ''; ?>" required>
+                <input type="text" id="peso" name="peso" value="<?php echo isset($paciente_info['peso']) ? $paciente_info['peso'] : ''; ?>" required>
             </div>
             <div class="form-group">
                 <label for="altura">Altura:</label>
-                <input type="number" id="altura" name="altura" value="<?php echo isset($paciente_info['altura']) ? $paciente_info['altura'] : ''; ?>" required>
+                <input type="text" id="altura" name="altura" value="<?php echo isset($paciente_info['altura']) ? $paciente_info['altura'] : ''; ?>" required>
             </div>
             <button type="submit" class="btn">Modificar</button>
         </form>

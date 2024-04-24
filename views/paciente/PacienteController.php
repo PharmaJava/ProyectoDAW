@@ -1,6 +1,6 @@
 <?php
-require_once '../config/db.php';
-require_once '../models/Paciente.php';
+require_once '../../config/db.php';
+require_once 'modelspaciente.php';
 
 session_start();
 
@@ -8,6 +8,9 @@ class PacienteController {
     public function save() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['usuario_id'])) {
             $paciente = new Paciente();
+
+        
+            // Configurar los datos del nuevo paciente
             $paciente->setUsuario_id($_SESSION['usuario_id']);
             $paciente->setNombre($_POST['nombre']);
             $paciente->setApellidos($_POST['apellidos']);
@@ -15,34 +18,29 @@ class PacienteController {
             $paciente->setEdad($_POST['edad']);
             $paciente->setPeso($_POST['peso']);
             $paciente->setAltura($_POST['altura']);
-            $paciente->setPaciente_id($_POST['paciente_id']);
 
+            // Guardar el registro del paciente
             $result = $paciente->save();
 
-            // Comprobación del rol del usuario para decidir la redirección adecuada
             if ($result) {
-                if ($_SESSION['rol'] === 'admin') {
-                    header('Location: ../views/admin/AdminDashboard.php'); // Redirige a los admins al dashboard de admin
-                    exit();
-                }elseif  ($_SESSION['rol'] === 'paciente') {
-                    header("Location: ../views/paciente/paciente.php");
-                    exit(); 
-                } else {
-                    header('Location: ../views/success.php'); // Redirige a usuarios no admins a la página de éxito
-                    exit();
-                }
+                // Redirigir al éxito
+                header("Location: pacientesuccess.php");
+                exit();
             } else {
+                // Registrar error y redirigir de nuevo al formulario
                 $_SESSION['error_registro'] = "Hubo un error al registrar el paciente.";
-                header('Location: ../views/paciente.php');
+                header('Location: paciente.php');
                 exit();
             }
         } else {
-            header('Location: ../views/pa   ciente.php');
+            // Redirigir al formulario si no hay datos de POST o no está establecido el usuario_id
+            header('Location: paciente.php');
             exit();
         }
     }
 }
 
+// Verificar si el botón de submit fue presionado y procesar el guardado
 if (isset($_POST['submit'])) {
     $controller = new PacienteController();
     $controller->save();

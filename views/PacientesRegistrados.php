@@ -32,30 +32,29 @@
 
         // Verificar si se encontraron pacientes
         if ($pacientes) {
-            // Mostrar la lista de pacientes en una tabla
-            echo "<h2>Pacientes Registrados</h2>";
-            echo "<br>";
-            echo "<p>Tiene un número de registros igual a: $num_registros</p>";
-            echo "<br>";
-            echo "<table>";
-            echo "<tr><th>Nombre</th><th>Apellidos</th><th>ID</th><th>Acciones</th></tr>";
-            foreach ($pacientes as $paciente) {
-                echo "<tr>";
-                echo "<td>{$paciente['nombre']}</td>";
-                echo "<td>{$paciente['apellidos']}</td>";
-                echo "<td>{$paciente['paciente_id']}</td>";
-                echo "<td>";
-                // Formulario para modificar o borrar el paciente
-                echo "<form action=\"PacienteModificar.php\" method=\"post\">";
-                
-                echo "<input type=\"hidden\" name=\"paciente_id\" value=\"{$paciente['paciente_id']}\">";
-                echo "<button type=\"submit\" class=\"btn-modificar\">Modificar</button>";
-                echo "<button type=\"submit\" formaction=\"borrar_paciente.php\" formmethod=\"post\" class=\"btn\">Borrar</button>";
-                echo "</form>";
-                echo "</td>";
-                echo "</tr>";
-            }
-            echo "</table>";
+          // Mostrar la lista de pacientes en una tabla
+echo "<h2>Pacientes Registrados</h2>";
+echo "<br>";
+echo "<p>Tiene un número de registros igual a: $num_registros</p>";
+echo "<br>";
+echo "<table>";
+echo "<tr><th>Nombre</th><th>Apellidos</th><th>ID</th><th>Acciones</th></tr>";
+foreach ($pacientes as $paciente) {
+    echo "<tr>";
+    echo "<td>{$paciente['nombre']}</td>";
+    echo "<td>{$paciente['apellidos']}</td>";
+    echo "<td>{$paciente['paciente_id']}</td>";
+    echo "<td>";
+    // Formulario para modificar o borrar el paciente
+    echo "<form action=\"PacienteModificar.php\" method=\"post\">"; // Cambiamos la acción del formulario
+    echo "<input type=\"hidden\" name=\"paciente_id\" value=\"{$paciente['paciente_id']}\">"; // Agregamos un campo oculto con el paciente_id
+    echo "<button type=\"submit\" class=\"btn-modificar\">Modificar</button>";
+    echo "<button type=\"submit\" formaction=\"borrar_paciente.php\" formmethod=\"post\" class=\"btn\">Borrar</button>";
+    echo "</form>";
+    echo "</td>";
+    echo "</tr>";
+}
+echo "</table>";
         } else {
             // Mostrar un mensaje si no se encontraron pacientes
             echo "<p>No hay pacientes registrados.</p>";

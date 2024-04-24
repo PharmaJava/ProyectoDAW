@@ -79,14 +79,59 @@ class Usuario {
   }
 
   // Métodos adicionales
+  // public function save() {
+  //   $sql = "INSERT INTO Usuarios (username, password, nombre, apellidos, email, rol, usuario_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  //   $stmt = $this->db->prepare($sql);
+  //   $stmt->bind_param('ssssssi', $this->username, $this->password, $this->nombre, $this->apellidos, $this->email, $this->rol, $this->usuario_id);
+  //   $result = $stmt->execute();
+  //   $stmt->close();
+  //   return $result;
+  // }
   public function save() {
-    $sql = "INSERT INTO Usuarios (username, password, nombre, apellidos, email, rol, usuario_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    // Asumiendo que has sanitizado y validado los datos de entrada apropiadamente
+    $username = $_POST['username'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Asegúrate de hashear la contraseña
+    $nombre = $_POST['nombre'];
+    $apellidos = $_POST['apellidos'];
+    $email = $_POST['email'];
+    $rol = $_POST['rol'];
+
+    // Preparar la sentencia SQL
+    $sql = "INSERT INTO Usuarios (username, password, nombre, apellidos, email, rol) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $this->db->prepare($sql);
-    $stmt->bind_param('ssssssi', $this->username, $this->password, $this->nombre, $this->apellidos, $this->email, $this->rol, $this->usuario_id);
+    if (!$stmt) {
+        $_SESSION['register'] = 'failed';
+        header('Location: ../views/registro.php');
+        exit();
+    }
+
+    // Vincular parámetros
+    $stmt->bind_param('ssssss', $username, $password, $nombre, $apellidos, $email, $rol);
+
+    // Ejecutar la consulta
     $result = $stmt->execute();
     $stmt->close();
-    return $result;
-  }
+
+    if ($result) {
+        // Si el registro es exitoso, inicia sesión automáticamente con los datos del nuevo usuario
+        $this->login($_POST['username'], $_POST['password']);
+        // Redirige al usuario según su rol
+        if ($rol === 'sanitario') {
+            header('Location: ../views/success.php');
+        } elseif ($rol === 'paciente') {
+            header('Location: ../views/paciente/pacientesuccess.php');
+        } else {
+            // Considera manejar otros roles o redirigir a una página por defecto
+            header('Location: ../index.php');
+        }
+        exit();
+    } else {
+        // Si hay un error en el registro, redirige de vuelta al formulario de registro
+        $_SESSION['register'] = 'failed';
+        header('Location: ../views/registro.php');
+        exit();
+    }
+}
 
   public static function find($usuario_id) {
     $sql = "SELECT * FROM Usuarios WHERE usuario_id = ?";
@@ -109,7 +154,7 @@ class Usuario {
   }
 
   public function login($username, $password) {
-    $sql = "SELECT * FROM Usuarios WHERE username = ?";
+    $sql = "SELECT u.*, p.paciente_id FROM Usuarios u LEFT JOIN Paciente p ON u.usuario_id = p.usuario_id WHERE u.username = ?";
     $stmt = $this->db->prepare($sql);
     if (!$stmt) {
         echo "Error preparing statement: " . $this->db->error;
@@ -134,6 +179,7 @@ class Usuario {
     $stmt->close();
     return false; // Retorna falso si el login falla
 }
+
   /// Método para actualizar la contraseña a hash
 public function updatePasswordHash($usuario_id, $password) {
   $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 4]);
