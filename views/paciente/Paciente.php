@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Registro de Paciente</title>
-    <link rel="stylesheet" href="../../assets/css/stylee.css">
+    <link rel="stylesheet" href="../../assets/css/estilos.css">
 </head>
 <body>
     <div class="full-page-form">
@@ -35,6 +35,7 @@
             <input type="text" id="altura" name="altura" required>
 
             <input type="submit" name="submit" value="Registrar">
+            <a href="pacientesuccess.php" class="btn">Volver</a>
         
         </form>
     </div>

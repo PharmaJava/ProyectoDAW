@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Registro de Usuario</title>
-  <link rel="stylesheet" href="../assets/css/stylee.css">
+  <link rel="stylesheet" href="../assets/css/estilos.css">
 </head>
 <body>
 <div class="full-page-form">

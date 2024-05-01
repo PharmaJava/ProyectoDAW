@@ -3,14 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Registro de Otros Medicamentos</title>
-    <link rel="stylesheet" href="../../assets/css/stylee.css">
+    <link rel="stylesheet" href="../assets/css/estilos.css">
 </head>
 <body>
     <div class="full-page-form">
+       <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Otros Medicamentos</title>
+    <link rel="stylesheet" href="../../assets/css/estilos.css">
+</head>
+<body>
+<div class="full-page-form">
         <h1>Registro de Otros Medicamentos</h1>
         <form action="../../controllers/OtrosMedicamentosController.php" method="post">
-            <label for="paciente_id">ID del Paciente:</label>
-            <input type="text" id="paciente_id" name="paciente_id" required>
+        <label for="paciente_id">ID del Paciente:</label>
+            <input type="text" id="paciente_id" name="paciente_id" required list="pacientesList">
+            <datalist id="pacientesList">
+                <!-- Las opciones se llenarán dinámicamente por JavaScript -->
+            </datalist>
 
             <label for="nombre_medicamento">Nombre del Medicamento:</label>
             <input type="text" id="nombre_medicamento" name="nombre_medicamento" required>
@@ -31,5 +43,27 @@
             <a href="pacientesuccess.php" class="btn">Volver</a>
         </form>
     </div>
+    <script>
+$(document).ready(function() {
+    // Cargar inicialmente todos los pacientes
+    $.ajax({
+    url: '../getPacientes.php', 
+    type: 'GET',
+    success: function(data) {
+            var pacientes = JSON.parse(data);
+            var pacientesList = $('#pacientesList');
+            pacientes.forEach(function(paciente) {
+                pacientesList.append(new Option(paciente.nombre, paciente.paciente_id)); 
+            });
+        },
+    error: function() {
+        alert('Error al cargar los pacientes');
+    }
+});
+
+});
+
+</script>
+
 </body>
 </html>

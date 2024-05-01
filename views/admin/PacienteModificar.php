@@ -4,51 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Paciente</title>
-    <link rel="stylesheet" href="../../assets/css/stylee.css">
+    <link rel="stylesheet" href="../../assets/css/estilos.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-    <style>
-        /* Estilos para el formulario */
-        .full-page-form {
-            width: 50%;
-            margin: 0 auto;
-        }
-        form {
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="text"],
-        input[type="number"],
-        select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        input[type="submit"],
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        input[type="submit"]:hover,
-        .btn:hover {
-            background-color: #45a049;
-        }
-    </style>
+
 </head>
 <body>
 <div class="full-page-form">

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Inicio - Aplicación de Gestión de Medicamentos</title>
-    <link rel="stylesheet" href="assets/css/stylee.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
 <body>
 <div class="title-container">

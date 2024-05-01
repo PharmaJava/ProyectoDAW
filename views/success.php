@@ -9,7 +9,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Registro Exitoso</title>
-    <link rel="stylesheet" href="../assets/css/stylee.css">
+    <link rel="stylesheet" href="../assets/css/estilos.css">
 </head>
 <body>
     <div class="container">

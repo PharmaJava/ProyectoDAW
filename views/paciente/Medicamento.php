@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Registro de Medicamento</title>
-    <link rel="stylesheet" href="../../assets/css/stylee.css"> 
+    <link rel="stylesheet" href="../../assets/css/estilos.css"> 
 </head>
 <body>
 <div class="full-width-form">
     <h1>Registrar Medicamento</h1>
+    <?php
+        session_start(); // Asegúrate de que la sesión está iniciada
+        if (!isset($_SESSION['paciente_id'])) {
+            echo "<p>Error: ID de paciente no está definido en la sesión.</p>"; // Manejo básico de errores
+        } else {
+            $pacienteId = $_SESSION['paciente_id']; // Obtiene el ID del paciente de la sesión
+    ?>
     <form action="../../controllers/MedicamentoController.php" method="post">
         <label for="paciente_id">ID del Paciente:</label>
-        <input type="number" id="paciente_id" name="paciente_id" required>
+        <input type="number" id="paciente_id" name="paciente_id" value="<?php echo $pacienteId; ?>" required readonly>
 
         <label for="nombre_medicamento">Nombre del Medicamento:</label>
         <input type="text" id="nombre_medicamento" name="nombre_medicamento" required>
@@ -45,9 +52,11 @@
         </select>
 
         <input type="submit" name="submit" value="Registrar Medicamento">
-        <a href="pacientesuccess.php" class="btn">Volver</a
-        
-</form>
+        <a href="pacientesuccess.php" class="btn">Volver</a>
+    </form>
+    <?php
+        } // Cierra el else
+    ?>
 </div>
 </body>
 </html>

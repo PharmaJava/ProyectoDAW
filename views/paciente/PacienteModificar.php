@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Paciente</title>
-    <link rel="stylesheet" href="../assets/css/stylee.css">
+    <link rel="stylesheet" href="../../assets/css/estilos.css">
 </head>
 <body>
 <div class="full-page-form">
     <?php
-    require_once __DIR__ . '/config/db.php'; // Asegúrate de que la conexión a la base de datos es correcta
+    require_once __DIR__ . '../../../config/db.php'; 
     require_once 'modelspaciente.php'; // Asegúrate de que la ruta al archivo es correcta
 
     session_start(); // Iniciar sesión
@@ -37,7 +37,7 @@
 
         if ($resultado) {
             echo "<p>Paciente actualizado correctamente.</p>";
-            header("Location: success.php");
+            header("Location: PacientesRegistrados.php");
         } else {
             echo "<p>Error al actualizar los datos del paciente.</p>";
             header("Location: PacienteModificar.php");

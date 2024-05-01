@@ -4,28 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrar Pacientes</title>
-    <link rel="stylesheet" href="../../assets/css/stylee.css">
+    <link rel="stylesheet" href="../../assets/css/estilos.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
 
-        thead {
-            background-color: #f2f2f2;
-        }
-
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-    </style>
 </head>
 <body>
 <div class="container">
@@ -63,7 +44,10 @@
             // Formulario para eliminar paciente
             echo "<form action='borrar_paciente.php' method='post' style='display: inline;'>";
             echo "<input type='hidden' name='paciente_id' value='{$paciente->getPaciente_id()}'>";
-            echo "<input type='submit' value='Eliminar' class='button'>";
+           // Dentro del bucle PHP para mostrar los pacientes
+            echo "<input type='submit' value='Eliminar' class='button btn-eliminar'>";
+
+
             echo "</form>";
 
             echo "</td>";

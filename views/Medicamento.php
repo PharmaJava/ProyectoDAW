@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Registro de Medicamento</title>
-    <link rel="stylesheet" href="../assets/css/stylee.css"> <!-- Asegúrate de que la ruta sea correcta -->
+    <link rel="stylesheet" href="../assets/css/estilos.css"> 
 </head>
 <body>
 <div class="full-width-form">

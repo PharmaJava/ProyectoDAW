@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medicamentos Registrados</title>
-    <link rel="stylesheet" href="../assets/css/stylee.css">
+    <link rel="stylesheet" href="../assets/css/estilos.css">
+    <!-- Agregar DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 </head>
 <body>
     <div class="container">
@@ -31,8 +33,11 @@
         $pacientes = $pacienteModel->getPacientesByUsuarioId($_SESSION['usuario_id']);
 
         if ($pacientes) {
-            echo "<table>";
-            echo "<tr><th>Paciente</th><th>Medicamento</th><th>ID Medicamento</th><th>Acciones</th></tr>";
+            echo "<table id='medicamentosTable'>"; // Agregar un ID a la tabla para DataTables
+            echo "<thead>";
+            echo "<tr><th>Paciente </th><th>Medicamento           |</th><th>ID_Medicamento|</th><th>Acciones</th></tr>";
+            echo "</thead>";
+            echo "<tbody>";
             foreach ($pacientes as $paciente) {
                 // Crear una instancia de la clase Medicamento y obtener medicamentos para el paciente actual
                 $medicamentoModel = new Medicamento();
@@ -53,7 +58,7 @@
                         // Formulario para borrar el medicamento
                         echo "<form action='borrar_medicamento.php' method='post'>";
                         echo "<input type='hidden' name='medicamento_id' value='{$medicamento['medicamento_id']}'>";
-                        echo "<button type='submit' class='btn'>Borrar</button>";
+                        echo "<button type='submit' class='btn btn-eliminar'>Borrar</button>"; // Agregar una clase para el botón de eliminar
                         echo "</form>";
                         echo "</td>";
                         echo "</tr>";
@@ -62,6 +67,7 @@
                     echo "<tr><td colspan='4'>No se encontraron medicamentos para el paciente {$paciente['nombre']} {$paciente['apellidos']}</td></tr>";
                 }
             }
+            echo "</tbody>";
             echo "</table>";
         } else {
             echo "<p>No se encontraron pacientes registrados.</p>";
@@ -70,5 +76,9 @@
         ?>
         <a href="success.php" class="btn">Volver</a>
     </div>
+    <!-- Agregar jQuery y DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="../admin/script.js"></script> <!-- Ruta al archivo JavaScript -->
 </body>
 </html>

@@ -1,7 +1,8 @@
 <?php
 
 // Requerir la conexión a la base de datos
-require_once '../config/db.php';
+
+require_once __DIR__ . '/../config/db.php';
 
 class Paciente {
     private $paciente_id;
@@ -111,15 +112,28 @@ public function getPacientesByUsuarioId($usuario_id) {
     return $pacientes;
 }
 
-// public function getPacienteById($paciente_id) {
-//     $sql = "SELECT * FROM Paciente WHERE paciente_id = ?";
-//     $stmt = $this->db->prepare($sql);
-//     $stmt->bind_param("i", $paciente_id);
-//     $stmt->execute();
-//     $result = $stmt->get_result();
-//     $pacientes = $result->fetch_all(MYSQLI_ASSOC);
-//     $stmt->close();
-//     return $pacientes;
+public function getAllPacientes($usuario_id) {
+    // Prepara la consulta SQL con un parámetro de sustitución
+    $stmt = $this->db->prepare("SELECT paciente_id, nombre FROM paciente WHERE usuario_id = ?");
+
+    // Vincula el parámetro usuario_id a la consulta
+    $stmt->bind_param("i", $usuario_id);
+
+    // Ejecuta la consulta
+    $stmt->execute();
+
+    // Obtiene los resultados
+    $result = $stmt->get_result();
+
+    // Fetch all rows as an associative array
+    $pacientes = $result->fetch_all(MYSQLI_ASSOC);
+
+    // Cierra el statement
+    $stmt->close();
+
+    return $pacientes;
+}
+
 public function getPacienteById($paciente_id) {
     $sql = "SELECT * FROM Paciente WHERE paciente_id = ?";
     $stmt = $this->db->prepare($sql);
