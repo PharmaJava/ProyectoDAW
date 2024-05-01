@@ -2,8 +2,8 @@
 // Verificar si se ha enviado el formulario de borrado
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["paciente_id"])) {
     // Incluir el archivo de configuración de la base de datos
-    require_once __DIR__ . '/../../config/db.php';
-    require_once __DIR__ . '/../../models/paciente.php';
+    require_once '..\..\config\db.php';
+    require_once '../paciente/modelspaciente.php';
 
     // Obtener el id del paciente a borrar
     $paciente_id = $_POST["paciente_id"];
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["paciente_id"])) {
     // Verificar si el paciente se borró correctamente
     if ($result) {
         // Redirigir a la página de éxito
-        header("Location: PacientesRegistrados.php");
+        header("Location: AdminPacientes.php");
         exit();
     } else {
         // Mostrar un mensaje de error

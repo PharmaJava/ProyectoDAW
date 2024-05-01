@@ -78,15 +78,7 @@ class Usuario {
     $this->rol = $rol;
   }
 
-  // Métodos adicionales
-  // public function save() {
-  //   $sql = "INSERT INTO Usuarios (username, password, nombre, apellidos, email, rol, usuario_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
-  //   $stmt = $this->db->prepare($sql);
-  //   $stmt->bind_param('ssssssi', $this->username, $this->password, $this->nombre, $this->apellidos, $this->email, $this->rol, $this->usuario_id);
-  //   $result = $stmt->execute();
-  //   $stmt->close();
-  //   return $result;
-  // }
+
   public function save() {
     // Asumiendo que has sanitizado y validado los datos de entrada apropiadamente
     $username = $_POST['username'];
@@ -133,25 +125,87 @@ class Usuario {
     }
 }
 
-  public static function find($usuario_id) {
-    $sql = "SELECT * FROM Usuarios WHERE usuario_id = ?";
-    $stmt = Database::connect()->prepare($sql);
-    $stmt->bind_param('i', $usuario_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $stmt->close();
-    return $result->fetch_object('Usuario');
+public static function find($usuario_id) {
+  $db = Database::connect();
+  $sql = "SELECT * FROM Usuarios WHERE usuario_id = ?";
+  $stmt = $db->prepare($sql);
+
+  if (!$stmt) {
+      error_log("Error preparando la consulta: " . $db->error);
+      return null;
   }
 
-  public static function all() {
-    $sql = "SELECT * FROM Usuarios";
-    $result = Database::connect()->query($sql);
-    $usuarios = array();
-    while ($row = $result->fetch_object()) {
-      $usuarios[] = new Usuario($row);
-    }
-    return $usuarios;
+  $stmt->bind_param('i', $usuario_id);
+  if (!$stmt->execute()) {
+      error_log("Error ejecutando la consulta: " . $stmt->error);
+      $stmt->close();
+      return null;
   }
+
+  $result = $stmt->get_result();
+  $stmt->close();
+
+  $userData = $result->fetch_assoc();
+  if ($userData) {
+      return new Usuario($userData); // Asegúrate de que el constructor de Usuario puede manejar un array
+  } else {
+      return null;
+  }
+}
+
+
+public static function all() {
+  $db = Database::connect();
+  $sql = "SELECT * FROM Usuarios";
+  $result = $db->query($sql);
+  $usuarios = array();
+  while ($row = $result->fetch_assoc()) {
+      $usuario = new Usuario();
+      $usuario->setUsuario_id($row['usuario_id']);
+      $usuario->setUsername($row['username']);
+      $usuario->setRol($row['rol']);
+      $usuario->setPassword($row['password']);
+      $usuario->setNombre($row['nombre']);
+      $usuario->setApellidos($row['apellidos']);
+      $usuario->setEmail($row['email']);
+      
+      $usuarios[] = $usuario;
+  }
+  return $usuarios;
+}
+
+
+public function actualizarUsuario($usuario_id, $username, $nombre, $apellidos, $email, $rol) {
+
+
+  $sql = "UPDATE Usuarios SET username = ?, nombre = ?, apellidos = ?, email = ?, rol = ? WHERE usuario_id = ?";
+  $stmt = $this->db->prepare($sql);
+  if (!$stmt) {
+      error_log("Error preparando la declaración: " . $this->db->error);
+      return false;
+  }
+
+  $stmt->bind_param('sssssi', $username, $nombre, $apellidos, $email, $rol, $usuario_id);
+  $executeResult = $stmt->execute();
+  if (!$executeResult) {
+      error_log("Error al ejecutar la actualización: " . $stmt->error);
+      $stmt->close();
+      return false;
+  }
+
+  $stmt->close();
+  return $executeResult;
+}
+
+
+public static function countAll() {
+    $db = Database::connect();
+    $sql = "SELECT COUNT(*) AS count FROM Usuarios";
+    $result = $db->query($sql);
+    $data = $result->fetch_object();
+    return $data->count;
+}
+
 
   public function login($username, $password) {
     $sql = "SELECT u.*, p.paciente_id FROM Usuarios u LEFT JOIN Paciente p ON u.usuario_id = p.usuario_id WHERE u.username = ?";
@@ -191,6 +245,21 @@ public function updatePasswordHash($usuario_id, $password) {
       $stmt->close();
   }
 }
+
+public function borrarUsuario($usuario_id) {
+  $sql = "DELETE FROM Usuarios WHERE usuario_id = ?";
+  $stmt = $this->db->prepare($sql);
+  if (!$stmt) {
+      error_log('Error de preparación: ' . $this->db->error);
+      return false;
+  }
+
+  $stmt->bind_param('i', $usuario_id);
+  $executeResult = $stmt->execute();
+  $stmt->close();
+
+  return $executeResult;
 }
 
+}
 ?>

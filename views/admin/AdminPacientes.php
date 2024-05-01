@@ -4,43 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrar Pacientes</title>
-    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/stylee.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: #f2f2f2;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Administrar Pacientes</h1>
-        <?php
-        require_once '../../config/db.php';
-        require_once '../../models/paciente.php';
-        session_start();
-        if (!isset($_SESSION['usuario_id']) || $_SESSION['rol'] !== 'admin') {
-            header('Location: index.php'); // Redirige si el usuario no es administrador
-            exit();
-        }
+<div class="container">
+    <h1>Administrar Pacientes</h1>
+    <?php
+    require_once '..\..\config\db.php';
+    require_once '../paciente/modelspaciente.php';
+    session_start();
+    if (!isset($_SESSION['usuario_id']) || $_SESSION['rol'] !== 'admin') {
+        header('Location: index.php'); // Redirige si el usuario no es administrador
+        exit();
+    }
 
-        $pacienteModel = new Paciente();
-        $pacientes = $pacienteModel->all(); // Método que devuelve todos los pacientes
+    $pacienteModel = new Paciente();
+    $pacientes = $pacienteModel->all(); // Método que devuelve todos los pacientes
 
-        if ($pacientes) {
-            echo "<table>";
-            echo "<tr><th>ID</th><th>Nombre</th><th>Apellidos</th><th>Acciones</th></tr>";
-            foreach ($pacientes as $paciente) {
-                echo "<tr>";
-                echo "<td>{$paciente->getPaciente_id()}</td>";
-                echo "<td>{$paciente->getNombre()}</td>";
-                echo "<td>{$paciente->getApellidos()}</td>";
-                echo "<td>";
-                echo "<a href='editarPaciente.php?paciente_id={$paciente->getPaciente_id()}' class='button'>Editar</a> "; // Editar paciente
-                echo "<a href='eliminarPaciente.php?paciente_id={$paciente->getPaciente_id()}' class='button'>Eliminar</a>"; // Eliminar paciente
-                echo "</td>";
-                echo "</tr>";
-            }
-            echo "</table>";
-        } else {
-            echo "<p>No hay pacientes registrados.</p>";
+    if ($pacientes) {
+        echo "<table id='pacientesTable'>";
+        echo "<thead>";
+        echo "<tr><th>ID</th><th>Nombre</th><th>Apellidos</th><th>Acciones</th></tr>";
+        echo "</thead>";
+        echo "<tbody>";
+        foreach ($pacientes as $paciente) {
+            echo "<tr>";
+            echo "<td>{$paciente->getPaciente_id()}</td>";
+            echo "<td>{$paciente->getNombre()}</td>";
+            echo "<td>{$paciente->getApellidos()}</td>";
+            echo "<td>";
+            // Formulario para editar paciente
+            echo "<form action='PacienteModificar.php' method='post' style='display: inline;'>";
+            echo "<input type='hidden' name='paciente_id' value='{$paciente->getPaciente_id()}'>";
+            echo "<input type='submit' value='Editar' class='button'>";
+            echo "</form> ";
+
+            // Formulario para eliminar paciente
+            echo "<form action='borrar_paciente.php' method='post' style='display: inline;'>";
+            echo "<input type='hidden' name='paciente_id' value='{$paciente->getPaciente_id()}'>";
+            echo "<input type='submit' value='Eliminar' class='button'>";
+            echo "</form>";
+
+            echo "</td>";
+            echo "</tr>";
         }
-        ?>
-        <a href="AdminDashboard.php" class="button">Volver al Dashboard</a>
-    </div>
+        echo "</tbody>";
+        echo "</table>";
+    } else {
+        echo "<p>No hay pacientes registrados.</p>";
+    }
+    ?>
+    <a href="AdminDashboard.php" class="button">Volver al Dashboard</a>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

@@ -150,5 +150,41 @@
         return $result;
     }  
 
-
+    public function borrarPaciente($paciente_id) {
+        // Iniciar transacción
+        $this->db->begin_transaction();
+    
+        try {
+            // Agregar aquí eliminaciones de otras tablas si son necesarias
+        
+            // Continuar con medicamentos y reacciones como antes
+            $sqlReacciones = "DELETE FROM reacciones WHERE medicamento_id IN (SELECT medicamento_id FROM medicamento WHERE paciente_id = ?)";
+            $stmtReacciones = $this->db->prepare($sqlReacciones);
+            $stmtReacciones->bind_param("i", $paciente_id);
+            $stmtReacciones->execute();
+            $stmtReacciones->close();
+    
+            $sqlMedicamento = "DELETE FROM medicamento WHERE paciente_id = ?";
+            $stmtMedicamento = $this->db->prepare($sqlMedicamento);
+            $stmtMedicamento->bind_param("i", $paciente_id);
+            $stmtMedicamento->execute();
+            $stmtMedicamento->close();
+    
+            // Borrar el paciente
+            $sqlPaciente = "DELETE FROM Paciente WHERE paciente_id = ?";
+            $stmtPaciente = $this->db->prepare($sqlPaciente);
+            $stmtPaciente->bind_param("i", $paciente_id);
+            $stmtPaciente->execute();
+            $stmtPaciente->close();
+    
+            // Si todo fue bien, confirmar la transacción
+            $this->db->commit();
+            return true;
+        } catch (Exception $e) {
+            // Si algo falla, hacer rollback
+            $this->db->rollback();
+            error_log("Error durante la eliminación del paciente y sus dependencias: " . $e->getMessage());
+            return false;
+        }
+    }
     }
