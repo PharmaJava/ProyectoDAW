@@ -1,6 +1,6 @@
 <?php
 
-require_once '../config/db.php'; // Asegúrate de que la ruta al archivo de conexión sea correcta
+require_once __DIR__. '/../config/db.php';
 
 class Reacciones {
     private $id;
@@ -91,7 +91,53 @@ class Reacciones {
         return $result;
     }
     
+    public function getReacciones() {
+        $sql = "SELECT r.*, p.nombre AS nombre_paciente, m.nombre_medicamento
+                FROM Reacciones r
+                JOIN Paciente p ON r.paciente_id = p.paciente_id
+                JOIN Medicamento m ON r.medicamento_id = m.medicamento_id";
+        $result = $this->db->query($sql);
+        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+    }
+    
 
+public function getReaccionById($id) {
+    $sql = "SELECT * FROM Reacciones WHERE id = ?";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $reaccion = $result->fetch_assoc();
+    $stmt->close();
+    return $reaccion;
+}
+public function actualizarReaccion($reaccion_id, $sintoma, $fecha_inicio, $fecha_fin, $estado_actual, $otros_datos_interes) {
+    $sql = "UPDATE Reacciones SET sintoma = ?, fecha_inicio = ?, fecha_fin = ?, estado_actual = ?, otros_datos_interes = ? WHERE id = ?";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bind_param("sssssi", $sintoma, $fecha_inicio, $fecha_fin, $estado_actual, $otros_datos_interes, $reaccion_id);
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
 }
 
+public function eliminarReaccion($reaccion_id) {
+    // Prepara la consulta SQL para eliminar la reacción según su ID
+    $stmt = $this->db->prepare("DELETE FROM reacciones WHERE id = ?");
+
+    // Vincula el parámetro de ID de reacción a la consulta
+   $stmt-> bind_param("i", $reaccion_id);
+
+    // Ejecuta la consulta
+    $resultado = $stmt->execute();
+
+    // Cierra el statement
+    $stmt->close();
+
+    // Devuelve verdadero si la eliminación fue exitosa, falso en caso contrario
+    return $resultado;
+}
+
+
+
+}
 ?>

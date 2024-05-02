@@ -1,5 +1,5 @@
 <?php
-require_once '../config/db.php';// Asegúrate de que la ruta es correcta
+require_once __DIR__. '/../config/db.php';
 
 class OtrosMedicamentos {
     private $id;
@@ -83,5 +83,47 @@ class OtrosMedicamentos {
         return $result;
     }
 
-    // Otros métodos que puedas necesitar...
+    public function getAllMedicamentos() {
+        $sql = "SELECT * FROM Otrosmedicamentos";
+        $result = $this->db->query($sql);
+        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+    }
+    
+    public function actualizarMedicamento($id, $nombre_medicamento, $posologia, $fecha_inicio, $fecha_fin, $uso_medicacion) {
+        $sql = "UPDATE OtrosMedicamentos SET nombre_medicamento = ?, posologia = ?, fecha_inicio = ?, fecha_fin = ?, uso_medicacion = ? WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("sssssi", $nombre_medicamento, $posologia, $fecha_inicio, $fecha_fin, $uso_medicacion, $id);
+        $resultado = $stmt->execute();
+        $stmt->close();
+        return $resultado;
+    }
+    
+    
+    public function getMedicamentoById($id) {
+        $sql = "SELECT * FROM OtrosMedicamentos WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $medicamento = $result->fetch_assoc();
+        $stmt->close();
+        return $medicamento;
+    }
+    
+    public function eliminarMedicamento($id) {
+        // Sentencia SQL para eliminar el medicamento con el ID proporcionado
+        $sql = "DELETE FROM OtrosMedicamentos WHERE id = ?";
+                // Preparar la sentencia SQL
+        $stmt = $this->db->prepare($sql);
+                // Vincular parámetros
+        $stmt->bind_param("i", $id);
+                // Ejecutar la consulta
+        $resultado = $stmt->execute();
+                // Cerrar la sentencia
+        $stmt->close();
+                // Devolver verdadero si la consulta se ejecutó con éxito, falso en caso contrario
+        return $resultado;
+    }
+    
+    
 }

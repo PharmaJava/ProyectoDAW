@@ -164,4 +164,49 @@ class Medicamento {
         $stmt->close();
         return $result;
     }
+
+    public function getMedicamentosConReacciones() {
+        $sql = "SELECT m.nombre_medicamento, p.nombre as nombre_paciente, p.paciente_id, m.medicamento_id
+                FROM medicamento m
+                JOIN paciente p ON m.paciente_id = p.paciente_id
+                JOIN reacciones r ON m.medicamento_id = r.medicamento_id
+                WHERE r.sintoma IS NOT NULL";
+        $result = $this->db->query($sql);
+        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+    }  
+
+    public function getMedicamentoById($medicamento_id) {
+        $sql = "SELECT medicamento_id, nombre_medicamento, fecha_inicio, fecha_fin, uso, codigo_nacional, lote, fecha_caducidad, posologia, via_administracion 
+                FROM medicamento 
+                WHERE medicamento_id = ?";
+        $stmt = $this->db->prepare($sql);
+        if (!$stmt) {
+            return false; // Manejo de error de preparación de la consulta
+        }
+        $stmt->bind_param("i", $medicamento_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+    
+    public function updateMedicamento($data) {
+        $stmt = $this->db->prepare("UPDATE medicamento SET nombre_medicamento = ?, fecha_inicio = ?, fecha_fin = ?, uso = ?, codigo_nacional = ?, lote = ?, fecha_caducidad = ?, posologia = ?, via_administracion = ? WHERE medicamento_id = ?");
+        $stmt->bind_param("sssssssssi", $data['nombre_medicamento'], $data['fecha_inicio'], $data['fecha_fin'], $data['uso'], $data['codigo_nacional'], $data['lote'], $data['fecha_caducidad'], $data['posologia'], $data['via_administracion'], $data['medicamento_id']);
+        return $stmt->execute();
+    }
+    
+    public function borrarReaccionesDelMedicamento($medicamento_id) {
+        $sql = "DELETE FROM reacciones WHERE medicamento_id = ?";
+        $stmt = $this->db->prepare($sql);
+        if (!$stmt) {
+            return false; // No se pudo preparar la declaración
+        }
+        $stmt->bind_param('i', $medicamento_id);
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
+    }
+    
+
+
 }

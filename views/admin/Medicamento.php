@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <title>Registro de Medicamento</title>
     <link rel="stylesheet" href="../../assets/css/estilos.css">
-
+<?php
+session_start();
+?>
 </head>
 <body>
 <div class="full-width-form">
     <h1>Registrar Medicamento</h1>
-    <form action="../controllers/MedicamentoController.php" method="post">
+    <form action="../../controllers/MedicamentoController.php" method="post">
         <label for="paciente_id">ID del Paciente:</label>
         <input type="number" id="paciente_id" name="paciente_id" required>
 
@@ -59,6 +61,28 @@
     btn.addEventListener('mouseout', function() {
         btn.style.backgroundColor = '#4CAF50';
     });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Función para cargar el ID del paciente cuando se carga la página
+    obtenerIdPaciente();
+
+    // Función para obtener el ID del paciente registrado por el usuario
+    function obtenerIdPaciente() {
+        $.ajax({
+            url: 'ObtenerIdPaciente.php', // Ruta al script PHP que obtiene el ID del paciente
+            type: 'GET',
+            success: function(response) {
+                // Establecer el valor del campo oculto 'paciente_id' con el ID del paciente recuperado
+                $('#registroMedicamentoForm input[name="paciente_id"]').val(response);
+            },
+            error: function() {
+                alert('Error al obtener el ID del paciente');
+            }
+        });
+    }
+});
 </script>
 </body>
 </html>

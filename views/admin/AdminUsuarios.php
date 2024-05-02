@@ -7,27 +7,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="../../assets/css/stylee.css">
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+    <link rel="stylesheet" href="../../assets/css/estilos.css">
 
-        thead {
-            background-color: #f2f2f2;
-        }
-
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-    </style>
 </head>
 <body>
 <div class="container">

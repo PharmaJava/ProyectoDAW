@@ -24,11 +24,19 @@ class ReaccionesController {
             $result = $reaccion->save();
 
             if ($result) {
-                // Redireccionar a una página de éxito
-                header('Location: ../views/success.php');
+                // Redireccionar según el rol del usuario
+                if ($_SESSION['rol'] === 'admin') {
+                    header('Location: ../views/admin/AdminDashboard.php');
+                } elseif ($_SESSION['rol'] === 'paciente') {
+                    header('Location: ../views/paciente/pacientesuccess.php');
+                } else {
+                    header('Location: ../views/success.php');
+                }
+                exit(); // Importante salir después de redirigir
             } else {
                 // Redireccionar a una página de error o volver al formulario con un mensaje de error
                 header('Location: ../views/error.php');
+                exit(); // Importante salir después de redirigir
             }
         } else {
             // Si el método no es POST, mostrar un error o redirigir
@@ -45,5 +53,4 @@ if (isset($_POST['submit'])) {
     $controller = new ReaccionesController();
     $controller->save();
 }
-
 ?>
