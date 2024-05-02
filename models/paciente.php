@@ -85,21 +85,23 @@ class Paciente {
         $this->altura = $altura;
     }
     
-    // Método para guardar un paciente
     public function save() {
-        $sql = "INSERT INTO Paciente (usuario_id, nombre, apellidos, sexo, edad, peso, altura,paciente_id) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
+        $sql = "INSERT INTO paciente (usuario_id, nombre, apellidos, sexo, edad, peso, altura) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
-        if (!$stmt) {
+        $stmt->bind_param('isssidi', $this->usuario_id, $this->nombre, $this->apellidos, $this->sexo, $this->edad, $this->peso, $this->altura);
+    
+        if ($stmt->execute()) {
+            // Asignar el ID del paciente recién creado al objeto paciente
+            $this->paciente_id = $stmt->insert_id;
+    
+            // Retorna el ID para ser usado inmediatamente después en la sesión
+            return $this->paciente_id;  
+        } else {
+            // Retorna false si la inserción falla
             return false;
         }
-
-        $stmt->bind_param('isssiddi', $this->usuario_id, $this->nombre, $this->apellidos, $this->sexo, $this->edad, $this->peso, $this->altura,$this->paciente_id);
-        $result = $stmt->execute();
-        $stmt->close();
-
-        return $result;
     }
-
+    
 
 public function getPacientesByUsuarioId($usuario_id) {
     $sql = "SELECT * FROM Paciente WHERE usuario_id = ?";

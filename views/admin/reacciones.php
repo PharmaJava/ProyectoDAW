@@ -46,12 +46,11 @@
             <a href="AdminDashboard.php" class="btn">Volver</a>
         </form>
     </div>
-
     <script>
 $(document).ready(function() {
     // Cargar inicialmente todos los pacientes
     $.ajax({
-        url: 'getPacientes.php', // Ajusta esta URL a la ruta correcta
+        url: '../getPacientes.php', // Ajusta esta URL a la ruta correcta
         type: 'GET',
         success: function(data) {
             var pacientes = JSON.parse(data);
@@ -69,11 +68,8 @@ $(document).ready(function() {
     $('#paciente_id').change(function() {
         var pacienteId = $(this).val(); // Obtiene el ID del paciente seleccionado
 
-        // Cargar automáticamente la ID del paciente
-        $('#id_paciente').val(pacienteId);
-        
         $.ajax({
-            url: 'medicamentosPorPaciente.php', // Ajusta esta URL a la ruta correcta
+            url: '../medicamentosPorPaciente.php', // Ajusta esta URL a la ruta correcta
             type: 'GET',
             data: { paciente_id: pacienteId },
             success: function(data) {

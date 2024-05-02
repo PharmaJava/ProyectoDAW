@@ -9,9 +9,9 @@
 <body>
 <div class="container">
     <h1>Registro de Otros Medicamentos</h1>
-    <form action="../controllers/OtrosMedicamentosController.php" method="post">
-        <label for="paciente_id">ID del Paciente:</label>
-        <input type="text" id="paciente_id" name="paciente_id" required>
+    <form action="../../controllers/OtrosMedicamentosController.php" method="post">
+            <label for="paciente_id">ID del Paciente:</label>
+            <select id="paciente_id" name="paciente_id" required> </select>
 
         <label for="nombre_medicamento">Nombre del Medicamento:</label>
         <input type="text" id="nombre_medicamento" name="nombre_medicamento" required>
@@ -32,5 +32,25 @@
         <a href="AdminDashboard.php" class="btn">Volver</a>
     </form>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: '../getPacientes.php',  
+        type: 'GET',
+        success: function(data) {
+            var pacientes = JSON.parse(data);
+            var pacienteSelect = $('#paciente_id');
+            pacientes.forEach(function(paciente) {
+                // Esto añade una opción al select con el nombre y el ID del paciente
+                pacienteSelect.append(new Option(paciente.nombre + " (ID: " + paciente.paciente_id + ")", paciente.paciente_id));
+            });
+        },
+        error: function() {
+            alert('Error al cargar los pacientes');
+        }
+    });
+});
+</script>
 </body>
 </html>

@@ -1,17 +1,15 @@
 <?php
-require_once '../config/db.php';
-require_once '../models/reacciones.php';
+require_once '../models/Reacciones.php';
 
-session_start();
+session_start();  // Asegúrate de iniciar la sesión al principio del script
+
 class ReaccionesController {
 
-    // Método para guardar una reacción
     public function save() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Crear una nueva instancia del modelo Reacciones
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
             $reaccion = new Reacciones();
-            
-            // Asignar valores a las propiedades del objeto Reacciones
+
+            // Asignar valores desde el formulario a las propiedades del objeto Reacciones
             $reaccion->setPacienteId($_POST['paciente_id']);
             $reaccion->setMedicamentoId($_POST['medicamento_id']);
             $reaccion->setSintoma($_POST['sintoma']);
@@ -20,35 +18,43 @@ class ReaccionesController {
             $reaccion->setEstadoActual($_POST['estado_actual']);
             $reaccion->setOtrosDatosInteres($_POST['otros_datos']);
 
-            // Intentar guardar la reacción en la base de datos
             $result = $reaccion->save();
 
             if ($result) {
-                // Redireccionar según el rol del usuario
-                if ($_SESSION['rol'] === 'admin') {
-                    header('Location: ../views/admin/AdminDashboard.php');
-                } elseif ($_SESSION['rol'] === 'paciente') {
-                    header('Location: ../views/paciente/pacientesuccess.php');
-                } else {
-                    header('Location: ../views/success.php');
-                }
-                exit(); // Importante salir después de redirigir
+                $this->redirectByRole();
             } else {
-                // Redireccionar a una página de error o volver al formulario con un mensaje de error
                 header('Location: ../views/error.php');
-                exit(); // Importante salir después de redirigir
+                exit();
             }
         } else {
-            // Si el método no es POST, mostrar un error o redirigir
             header('HTTP/1.1 405 Method Not Allowed');
-            exit("Método no permitido");
+            exit("Método no permitido o datos no enviados");
         }
     }
 
-    // Aquí podrías agregar más métodos relacionados con 'Reacciones'
+    private function redirectByRole() {
+        // Asumimos que el rol del usuario está almacenado en la sesión
+        $role = $_SESSION['rol'] ?? 'guest';  // Usar 'guest' como valor por defecto si no está definido
+
+        switch ($role) {
+            case 'admin':
+                header('Location: ../views/admin/AdminDashboard.php');
+                break;
+            case 'paciente':
+                header('Location: ../views/paciente/Pacientesuccess.php');
+                break;
+            case 'sanitario':
+                header('Location: ../views/success.php');
+                break;
+            default:
+                header('Location: ../views/index.php'); // Página de inicio por defecto o página de login
+                break;
+        }
+        exit();
+    }
+
 }
 
-// Verificar si se ha llamado al método 'save' a través de un formulario
 if (isset($_POST['submit'])) {
     $controller = new ReaccionesController();
     $controller->save();

@@ -19,6 +19,7 @@ session_start();
         <h1>Bienvenido!</h1>
     <?php endif; ?>
     <br>
+                <h2>Dashboard de Sanitario</h2>
         <p>Selecciona una opción para continuar.</p>
         <br>
         <div class="next-steps">

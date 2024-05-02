@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+require_once __DIR__ . '/../../config/db.php';
+require_once '../../models/Usuario.php';
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

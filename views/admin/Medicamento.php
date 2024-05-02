@@ -4,16 +4,13 @@
     <meta charset="UTF-8">
     <title>Registro de Medicamento</title>
     <link rel="stylesheet" href="../../assets/css/estilos.css">
-<?php
-session_start();
-?>
 </head>
 <body>
 <div class="full-width-form">
     <h1>Registrar Medicamento</h1>
     <form action="../../controllers/MedicamentoController.php" method="post">
         <label for="paciente_id">ID del Paciente:</label>
-        <input type="number" id="paciente_id" name="paciente_id" required>
+        <select id="paciente_id" name="paciente_id" required>
 
         <label for="nombre_medicamento">Nombre del Medicamento:</label>
         <input type="text" id="nombre_medicamento" name="nombre_medicamento" required>
@@ -52,36 +49,24 @@ session_start();
     </form>
 </div>
 
-<script>
-    // Script para cambiar el color del botón al pasar el cursor sobre él
-    var btn = document.querySelector('.btn');
-    btn.addEventListener('mouseover', function() {
-        btn.style.backgroundColor = '#45a049';
-    });
-    btn.addEventListener('mouseout', function() {
-        btn.style.backgroundColor = '#4CAF50';
-    });
-</script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
-    // Función para cargar el ID del paciente cuando se carga la página
-    obtenerIdPaciente();
-
-    // Función para obtener el ID del paciente registrado por el usuario
-    function obtenerIdPaciente() {
-        $.ajax({
-            url: 'ObtenerIdPaciente.php', // Ruta al script PHP que obtiene el ID del paciente
-            type: 'GET',
-            success: function(response) {
-                // Establecer el valor del campo oculto 'paciente_id' con el ID del paciente recuperado
-                $('#registroMedicamentoForm input[name="paciente_id"]').val(response);
-            },
-            error: function() {
-                alert('Error al obtener el ID del paciente');
-            }
-        });
-    }
+    $.ajax({
+        url: '../getpacientes.php',  
+        type: 'GET',
+        success: function(data) {
+            var pacientes = JSON.parse(data);
+            var pacienteSelect = $('#paciente_id');
+            pacientes.forEach(function(paciente) {
+                // Esto añade una opción al select con el nombre y el ID del paciente
+                pacienteSelect.append(new Option(paciente.nombre + " (ID: " + paciente.paciente_id + ")", paciente.paciente_id));
+            });
+        },
+        error: function() {
+            alert('Error al cargar los pacientes');
+        }
+    });
 });
 </script>
 </body>

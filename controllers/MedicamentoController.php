@@ -1,15 +1,15 @@
 <?php
-
 require_once '../models/Medicamento.php';
+
+session_start(); // Asegúrate de que la sesión siempre se inicia al principio del script
 
 class MedicamentoController {
 
     public function save() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Crear una nueva instancia de Medicamento
             $medicamento = new Medicamento();
 
-            // Asignar valores a las propiedades del objeto Medicamento
+            // Asignar valores desde el formulario a las propiedades del objeto Medicamento
             $medicamento->setNombreMedicamento($_POST['nombre_medicamento']);
             $medicamento->setFechaInicio($_POST['fecha_inicio']);
             $medicamento->setFechaFin($_POST['fecha_fin']);
@@ -19,32 +19,47 @@ class MedicamentoController {
             $medicamento->setFechaCaducidad($_POST['fecha_caducidad']);
             $medicamento->setPosologia($_POST['posologia']);
             $medicamento->setViaAdministracion($_POST['via_administracion']);
-            $medicamento->setPacienteid($_POST['paciente_id']);
-            // Guardar el medicamento en la base de datos
+            $medicamento->setPacienteId($_POST['paciente_id']);
+
             $result = $medicamento->save();
 
-            // Verificar el resultado de la operación y redireccionar o informar al usuario
             if ($result) {
-                // Redireccionar a la página de éxito, ajustar según sea necesario
-                header('Location: ../views/success.php');
+                $this->redirectByRole();
             } else {
-                // Redireccionar a la página de error, ajustar según sea necesario
                 header('Location: ../views/error.php');
+                exit();
             }
         } else {
-            // Redireccionar o mostrar error si el método no es POST o si no se envían datos
             header('HTTP/1.1 405 Method Not Allowed');
             exit("Método no permitido o datos no enviados");
         }
     }
 
-    // Aquí podrías agregar más métodos relacionados con 'Medicamento'
+    private function redirectByRole() {
+        // Asumimos que el rol del usuario está almacenado en la sesión
+        $role = $_SESSION['rol'] ?? 'guest';  // Usar 'guest' como valor por defecto si no está definido
+
+        switch ($role) {
+            case 'admin':
+                header('Location: ../views/admin/AdminDashboard.php');
+                break;
+            case 'paciente':
+                header('Location: ../views/paciente/pacientesuccess.php');
+                break;
+            case 'sanitario':
+                header('Location: ../views/success.php');
+                break;
+            default:
+                header('Location: ../views/index.php'); // Página de inicio por defecto o página de login
+                break;
+        }
+        exit();
+    }
+
 }
 
-// Verificar si se ha llamado al método 'save' a través de un formulario
-if (isset($_POST['submit']))  {
+if (isset($_POST['submit'])) {
     $controller = new MedicamentoController();
     $controller->save();
 }
-
 ?>

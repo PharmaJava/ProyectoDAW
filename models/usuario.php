@@ -114,7 +114,7 @@ class Usuario {
             header('Location: ../views/paciente/pacientesuccess.php');
         } else {
             // Considera manejar otros roles o redirigir a una página por defecto
-            header('Location: ../index.php');
+            header('Location: ../views/paciente/pacientesuccess.php');
         }
         exit();
     } else {

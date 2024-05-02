@@ -18,12 +18,10 @@
 <div class="full-page-form">
         <h1>Registro de Otros Medicamentos</h1>
         <form action="../../controllers/OtrosMedicamentosController.php" method="post">
-        <label for="paciente_id">ID del Paciente:</label>
-            <input type="text" id="paciente_id" name="paciente_id" required list="pacientesList">
-            <datalist id="pacientesList">
-                <!-- Las opciones se llenarán dinámicamente por JavaScript -->
-            </datalist>
+            <label for="paciente_id">ID del Paciente:</label>
+            <select id="paciente_id" name="paciente_id" required> </select>
 
+            
             <label for="nombre_medicamento">Nombre del Medicamento:</label>
             <input type="text" id="nombre_medicamento" name="nombre_medicamento" required>
 
@@ -43,27 +41,25 @@
             <a href="pacientesuccess.php" class="btn">Volver</a>
         </form>
     </div>
-    <script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
 $(document).ready(function() {
-    // Cargar inicialmente todos los pacientes
     $.ajax({
-    url: '../getPacientes.php', 
-    type: 'GET',
-    success: function(data) {
+        url: '../getPacientes.php',  
+        type: 'GET',
+        success: function(data) {
             var pacientes = JSON.parse(data);
-            var pacientesList = $('#pacientesList');
+            var pacienteSelect = $('#paciente_id');
             pacientes.forEach(function(paciente) {
-                pacientesList.append(new Option(paciente.nombre, paciente.paciente_id)); 
+                // Esto añade una opción al select con el nombre y el ID del paciente
+                pacienteSelect.append(new Option(paciente.nombre + " (ID: " + paciente.paciente_id + ")", paciente.paciente_id));
             });
         },
-    error: function() {
-        alert('Error al cargar los pacientes');
-    }
+        error: function() {
+            alert('Error al cargar los pacientes');
+        }
+    });
 });
-
-});
-
 </script>
-
 </body>
 </html>

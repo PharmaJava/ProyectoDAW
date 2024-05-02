@@ -1,45 +1,55 @@
 <?php
-require_once '../config/db.php';
 require_once '../models/Paciente.php';
 
 session_start();
 
 class PacienteController {
     public function save() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['usuario_id'])) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit']) && isset($_SESSION['usuario_id'])) {
             $paciente = new Paciente();
             $paciente->setUsuario_id($_SESSION['usuario_id']);
-            $paciente->setNombre($_POST['nombre']);
-            $paciente->setApellidos($_POST['apellidos']);
-            $paciente->setSexo($_POST['sexo']);
-            $paciente->setEdad($_POST['edad']);
-            $paciente->setPeso($_POST['peso']);
-            $paciente->setAltura($_POST['altura']);
-            $paciente->setPaciente_id($_POST['paciente_id']);
+            $paciente->setNombre(htmlspecialchars($_POST['nombre']));
+            $paciente->setApellidos(htmlspecialchars($_POST['apellidos']));
+            $paciente->setSexo(htmlspecialchars($_POST['sexo']));
+            $paciente->setEdad(filter_var($_POST['edad'], FILTER_VALIDATE_INT));
+            $paciente->setPeso(htmlspecialchars($_POST['peso']));
+            $paciente->setAltura(htmlspecialchars($_POST['altura']));
 
-            $result = $paciente->save();
+            $paciente_id = $paciente->save();
 
-            // Comprobación del rol del usuario para decidir la redirección adecuada
-            if ($result) {
-                if ($_SESSION['rol'] === 'admin') {
-                    header('Location: ../views/admin/AdminDashboard.php'); // Redirige a los admins al dashboard de admin
-                    exit();
-                }elseif  ($_SESSION['rol'] === 'paciente') {
-                    header("Location: ../views/paciente/paciente.php");
-                    exit(); 
-                } else {
-                    header('Location: ../views/success.php'); // Redirige a usuarios no admins a la página de éxito
-                    exit();
-                }
+            if ($paciente_id) {
+                $_SESSION['paciente_id'] = $paciente_id;
+                session_write_close(); // Guarda los cambios en la sesión antes de redirigir
+
+                $this->redirectByRole(); // Llama a la función de redirección según el rol
             } else {
                 $_SESSION['error_registro'] = "Hubo un error al registrar el paciente.";
-                header('Location: ../views/paciente.php');
+                header('Location: ../views/paciente/paciente.php');
                 exit();
             }
         } else {
-            header('Location: ../views/pa   ciente.php');
+            header('Location: ../index.php');
             exit();
         }
+    }
+
+    private function redirectByRole() {
+        $role = $_SESSION['rol'] ?? 'guest'; // Usa 'guest' como rol por defecto si no está definido
+        switch ($role) {
+            case 'admin':
+                header('Location: ../views/admin/AdminDashboard.php');
+                break;
+            case 'paciente':
+                header("Location: ../views/paciente/pacientesuccess.php");
+                break;
+            case 'sanitario':
+                header("Location: ../views/success.php");
+                break;
+            default:
+                header('Location: ../index.php'); // Redirige a la página de inicio o de login
+                break;
+        }
+        exit();
     }
 }
 

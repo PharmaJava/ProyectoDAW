@@ -30,8 +30,9 @@
       <option value="sanitario">Sanitario</option>
       <option value="paciente">Paciente</option>
     </select>
-
-    <input type="submit" name="submit" value="Registrar">
+    
+    <input type="hidden" name="action" value="register">
+    <button type="submit" name="submit">Registrar</button>
     <a href="../index.php" class="btn">Volver</a>
   </form>
 </div>
