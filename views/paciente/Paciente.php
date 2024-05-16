@@ -16,7 +16,7 @@ require_once '../../models/Usuario.php';
 </head>
 <body>
     <div class="full-page-form">
-        <h1>Formulario de Registro de Paciente</h1>
+        <h1>Completa tus datos</h1>
         <form action="PacienteController.php" method="post">
             <!-- Este input podría estar oculto si estás pasando el usuario_id directamente -->
             <input type="hidden" name="usuario_id" value="<?php echo $_SESSION['usuario_id']; ?>">
@@ -44,7 +44,7 @@ require_once '../../models/Usuario.php';
             <input type="text" id="altura" name="altura" required>
 
             <input type="submit" name="submit" class= "btn btn-modificar"value="Registrar">
-            <a href="pacientesuccess.php" class="btn">Volver</a>
+
         
         </form>
     </div>

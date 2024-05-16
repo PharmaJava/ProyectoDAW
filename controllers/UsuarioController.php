@@ -60,7 +60,7 @@ class UsuarioController {
                 header('Location: ../views/success.php');
                 break;
             case 'paciente':
-                header('Location: ../views/paciente/pacientesuccess.php');
+                header('Location: ../views/paciente/paciente.php');
                 break;
             default:
                 header('Location: ../views/index.php');

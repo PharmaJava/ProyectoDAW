@@ -29,7 +29,6 @@
             <h2>Dashboard de Paciente</h2>
     <p>Selecciona una opción para continuar.</p>
     <div class="next-steps">
-        <a href="Paciente.php" class="button">OBLIGATORIO: Completa tus datos</a>
         <a href="PacientesRegistrados.php" class="button">Tus Datos</a>
         <a href="Medicamento.php" class="button">Medicamento que dio la reacción</a>
         <a href="MedicamentosRegistrados.php" class="button">Medicamentos que has registrado</a>

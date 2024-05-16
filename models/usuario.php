@@ -4,6 +4,8 @@
 
 require_once __DIR__ . '/../config/db.php';
 
+
+
 class Usuario {
 
   private $usuario_id;
@@ -230,45 +232,6 @@ public static function countAll() {
     return $data->count;
 }
 
-
-//   public function login($username, $password) {
-//     $sql = "SELECT u.*, p.paciente_id FROM Usuarios u LEFT JOIN Paciente p ON u.usuario_id = p.usuario_id WHERE u.username = ?";
-//     $stmt = $this->db->prepare($sql);
-//     if (!$stmt) {
-//         echo "Error preparing statement: " . $this->db->error;
-//         return false;
-//     }
-//     $stmt->bind_param('s', $username);
-//     $stmt->execute();
-//     $usuario = $stmt->get_result()->fetch_object();
-
-//     if ($usuario) {
-//         // Verificar si la contraseña es hash o no
-//         if (password_verify($password, $usuario->password)) {
-//             $stmt->close();
-//             return $usuario; // Retorna el objeto usuario si el login es exitoso
-//         } elseif ($password === $usuario->password) {
-//             // La contraseña coincide directamente, actualizamos a hash
-//             $this->updatePasswordHash($usuario->usuario_id, $password);
-//             $stmt->close();
-//             return $usuario; // Retorna el objeto usuario
-//         }
-//     }
-//     $stmt->close();
-//     return false; // Retorna falso si el login falla
-// }
-
-//   /// Método para actualizar la contraseña a hash
-// public function updatePasswordHash($usuario_id, $password) {
-//   $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 4]);
-//   $sql = "UPDATE Usuarios SET password = ? WHERE usuario_id = ?";
-//   $stmt = $this->db->prepare($sql);
-//   if ($stmt) {
-//       $stmt->bind_param('si', $hash, $usuario_id);
-//       $stmt->execute();
-//       $stmt->close();
-//   }
-// }
 
 public function borrarUsuario($usuario_id) {
   $sql = "DELETE FROM Usuarios WHERE usuario_id = ?";

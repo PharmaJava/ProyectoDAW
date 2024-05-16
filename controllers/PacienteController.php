@@ -20,7 +20,7 @@ class PacienteController {
             if ($paciente_id) {
                 $_SESSION['paciente_id'] = $paciente_id;
                 session_write_close(); // Guarda los cambios en la sesión antes de redirigir
-
+                
                 $this->redirectByRole(); // Llama a la función de redirección según el rol
             } else {
                 $_SESSION['error_registro'] = "Hubo un error al registrar el paciente.";
