@@ -3,7 +3,11 @@
 require_once __DIR__ . '/../config/db.php';
 require_once '../models/Usuario.php';
 session_start();
-
+ // Verificar si el usuario está autenticado y si tiene el rol de sanitario
+ if (!isset($_SESSION['usuario_id']) || $_SESSION['rol'] !== 'sanitario') {
+    header('Location: ../../index.php');
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">

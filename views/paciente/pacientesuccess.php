@@ -13,11 +13,11 @@
 <div class="full-width-form">
     <?php
     session_start();
-    // Redirecciona si no está logueado
-    if (!isset($_SESSION['usuario_id'])) {
-        header("Location: ../index.php");
-        exit();
-    }
+    // Verificar si el usuario está autenticado y si tiene el rol de paciente
+ if (!isset($_SESSION['usuario_id']) || $_SESSION['rol'] !== 'paciente') {
+    header('Location: ../../index.php');
+    exit();
+}
 
     // Saludar al usuario por su nombre y mostrar el ID del paciente si está disponible
     echo '<h1>Bienvenido, ' . htmlspecialchars($_SESSION['username']); echo '.';
