@@ -20,20 +20,22 @@
     }
 
     // Saludar al usuario por su nombre y mostrar el ID del paciente si está disponible
-    echo '<h1>Bienvenido, ' . htmlspecialchars($_SESSION['username']);
-    if (isset($_SESSION['paciente_id'])) {
-        echo ' (Paciente ID: ' . $_SESSION['paciente_id'] . ')';
-    }
+    echo '<h1>Bienvenido, ' . htmlspecialchars($_SESSION['username']); echo '.';
+    // if (isset($_SESSION['paciente_id'])) {
+    //     echo ' (Paciente ID: ' . $_SESSION['paciente_id'] . ')';
+    // }
     echo '</h1>';
     ?>
-            <h2>Dashboard de Paciente</h2>
+            <h2>Dashboard de Paciente:</h2>
     <p>Selecciona una opción para continuar.</p>
     <div class="next-steps">
         <a href="PacientesRegistrados.php" class="button">Tus Datos</a>
-        <a href="Medicamento.php" class="button">Medicamento que dio la reacción</a>
-        <a href="MedicamentosRegistrados.php" class="button">Medicamentos que has registrado</a>
+        <br>
+        <a href="Medicamento.php" class="button">Medicamento que dió la reacción</a>
+        <a href="MedicamentosRegistrados.php" class="button">Medicamentos registrados con reacción</a>
+        <br>
         <a href="reacciones.php" class="button">Registrar la reacción adversa</a>
-        <a href="OtrosMedicamentos.php" class="button">Si tomas otro medicamento aunque no te haya dado reacción, haz clic aquí</a>
+        <a href="OtrosMedicamentos.php" class="button">Medicación Crónica</a>
         <form action="../logout.php" method="post">
             <button type="submit" class="button">Cerrar Sesión</button>
         </form>
