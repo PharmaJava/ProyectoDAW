@@ -25,7 +25,7 @@
             <label for="nombre_medicamento">Nombre del Medicamento:</label>
             <input type="text" id="nombre_medicamento" name="nombre_medicamento" required>
 
-            <label for="posologia">Posología (cómo se utilizó el medicamento):</label>
+            <label for="posologia">Posología:</label>
             <textarea id="posologia" name="posologia" required></textarea>
 
             <label for="fecha_inicio">Fecha de inicio:</label>

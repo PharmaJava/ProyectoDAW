@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="../../assets/css/estilos.css">
 </head>
 <body>
-    <div class="container">
+<div class="full-page-form">
         <?php
         require_once __DIR__ . '/../../config/db.php';
         require_once __DIR__ . '/../../models/Usuario.php';
-        require_once __DIR__ . '/../../models/medicamento.php';
+        require_once __DIR__ . '/../../models/Medicamento.php';
 
         session_start();
 
@@ -29,7 +29,7 @@
         }
 
         $medicamentoModel = new Medicamento();
-        $medicamento = $medicamentoModel->getPacienteById($medicamento_id);
+        $medicamento = $medicamentoModel->getMedicamentoById($medicamento_id);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
             // Aquí procesarías los datos enviados por el formulario
@@ -38,7 +38,7 @@
             $fecha_fin = $_POST['fecha_fin'];
             $uso = $_POST['uso'];
 
-            //actualizamos el medicamento
+            // Actualizamos el medicamento
             $actualizado = $medicamentoModel->actualizarMedicamento($medicamento_id, $nombre_medicamento, $fecha_inicio, $fecha_fin, $uso);
             if ($actualizado) {
                 echo "<p>Medicamento actualizado con éxito.</p>";
@@ -54,16 +54,16 @@
                 <form action="modificar_medicamento.php" method="post">
                     <input type="hidden" name="medicamento_id" value="<?php echo $medicamento_id; ?>">
                     <label for="nombre_medicamento">Nombre del Medicamento:</label>
-                    <input type="text" id="nombre_medicamento" name="nombre_medicamento" value="<?php echo htmlspecialchars($medicamento['nombre_medicamento']); ?>" required>
+                    <input type="text" id="nombre_medicamento" name="nombre_medicamento" value="<?php echo htmlspecialchars($medicamento['nombre_medicamento'] ?? ''); ?>" required>
 
                     <label for="fecha_inicio">Fecha de Inicio:</label>
-                    <input type="date" id="fecha_inicio" name="fecha_inicio" value="<?php echo $medicamento['fecha_inicio']; ?>">
+                    <input type="date" id="fecha_inicio" name="fecha_inicio" value="<?php echo htmlspecialchars($medicamento['fecha_inicio'] ?? ''); ?>">
 
                     <label for="fecha_fin">Fecha de Fin:</label>
-                    <input type="date" id="fecha_fin" name="fecha_fin" value="<?php echo $medicamento['fecha_fin']; ?>">
+                    <input type="date" id="fecha_fin" name="fecha_fin" value="<?php echo htmlspecialchars($medicamento['fecha_fin'] ?? ''); ?>">
 
                     <label for="uso">Uso:</label>
-                    <input type="text" id="uso" name="uso" value="<?php echo htmlspecialchars($medicamento['uso']); ?>">
+                    <input type="text" id="uso" name="uso" value="<?php echo htmlspecialchars($medicamento['uso'] ?? ''); ?>">
 
                     <button type="submit" name="update" class='btn btn-modificar'>Actualizar Medicamento</button>
                 </form>
@@ -73,7 +73,7 @@
             }
         }
         ?>
-         <a href="MedicamentosRegistrados.php" class="btn btn-volver">Volver</a>
+        <a href="MedicamentosRegistrados.php" class="btn btn-volver">Volver</a>
     </div>
 </body>
 </html>

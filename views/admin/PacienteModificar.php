@@ -39,7 +39,7 @@
 
         if ($resultado) {
             echo "<p>Paciente actualizado correctamente.</p>";
-            header("Location: Adminpacientes.php");
+            header("Location: PacientesRegistrados.php");
         } else {
             echo "<p>Error al actualizar los datos del paciente.</p>";
             header("Location: PacienteModificar.php");

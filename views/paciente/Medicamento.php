@@ -10,7 +10,7 @@
     <h1>Registrar Medicamento</h1>
     <form action="../../controllers/MedicamentoController.php" method="post">
         <label for="paciente_id">ID del Paciente:</label>
-        <select id="paciente_id" name="paciente_id" required>
+        <select id="paciente_id" name="paciente_id" required></select>
 
         <label for="nombre_medicamento">Nombre del Medicamento:</label>
         <input type="text" id="nombre_medicamento" name="nombre_medicamento" required>

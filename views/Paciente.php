@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../assets/css/estilos.css">
 </head>
 <body>
-    <div    >
+<div class="full-page-form">
         <h1>Formulario de Registro de Paciente</h1>
         <form action="../controllers/PacienteController.php" method="post">
             <!-- Este input podría estar oculto si estás pasando el usuario_id directamente -->

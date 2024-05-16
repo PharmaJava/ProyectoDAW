@@ -175,10 +175,9 @@ class Medicamento {
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }  
 
+
     public function getMedicamentoById($medicamento_id) {
-        $sql = "SELECT medicamento_id, nombre_medicamento, fecha_inicio, fecha_fin, uso, codigo_nacional, lote, fecha_caducidad, posologia, via_administracion 
-                FROM medicamento 
-                WHERE medicamento_id = ?";
+        $sql = "SELECT * FROM Medicamento WHERE medicamento_id = ?";
         $stmt = $this->db->prepare($sql);
         if (!$stmt) {
             return false; // Manejo de error de preparación de la consulta
