@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../assets/css/estilos.css">
 </head>
 <body>
-<div class="full-page-form">
+<div class="full-width-form">
         <h1>Registro de Otros Medicamentos</h1>
         <form action="../controllers/OtrosMedicamentosController.php" method="post">
             <label for="paciente_id">ID del Paciente:</label>
@@ -36,7 +36,7 @@
             <label for="uso_medicacion">Uso de la medicación (para qué se utilizó):</label>
             <textarea id="uso_medicacion" name="uso_medicacion" required></textarea>
 
-            <button type="submit" name="submit">Registrar</button>
+            <button type="submit"class= "btn btn-modificar" name="submit">Registrar</button>
             <a href="success.php" class="btn">Volver</a>
         </form>
     </div>

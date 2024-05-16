@@ -50,8 +50,8 @@
                     // Formulario para modificar o borrar el paciente
                     echo "<form action=\"PacienteModificar.php\" method=\"post\">";
                     echo "<input type=\"hidden\" name=\"paciente_id\" value=\"{$paciente['paciente_id']}\">";
-                    echo "<button type=\"submit\" class=\"btn-modificar\">Modificar</button>";
-                    echo "<button type=\"submit\" formaction=\"borrar_paciente.php\" formmethod=\"post\" class=\"btn\">Borrar</button>";
+                    echo "<button type=\"submit\" class=\"btn btn-modificar\">Modificar</button>";
+                    echo "<button type=\"submit\" formaction=\"borrar_paciente.php\" formmethod=\"post\" class=\"btn btn-borrar\">Borrar</button>";
                     echo "</form>";
                     echo "</td>";
                     echo "</tr>";

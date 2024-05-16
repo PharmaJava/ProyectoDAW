@@ -97,7 +97,7 @@
                         <option value="otra" <?php echo $medicamento_info['via_administracion'] === 'otra' ? 'selected' : ''; ?>>Otra</option>
                     </select>
                 </div>
-                <button type="submit" name="submit" class="btn">Modificar</button>
+                <button type="submit" name="submit" class='btn btn-modificar'>Modificar</button>
             </form>
             <a href="AdminMedicamentos.php" class="btn">Volver</a>
             <?php

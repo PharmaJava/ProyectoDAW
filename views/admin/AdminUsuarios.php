@@ -37,13 +37,13 @@
         echo "<td>{$usuario->getUsername()}</td>";
         echo "<td>{$usuario->getRol()}</td>";
         echo "<td>";
-        echo "<form action='UsuarioModificar.php' method='post' style='display: inline;'>";
+        echo "<form action='UsuarioModificar.php' method='post'  class='form-inline' style='display: inline;'>";
         echo "<input type='hidden' name='usuario_id' value='{$usuario->getUsuario_id()}'>";
-        echo "<input type='submit' value='Editar' class='button'>";
+        echo "<input type='submit' value='Editar' class='btn btn-modificar'>";
         echo "</form> ";
-        echo "<form action='borrar_usuario.php' method='post' style='display: inline;'>";
+        echo "<form action='borrar_usuario.php' method='post'  class='form-inline'  style='display: inline;'>";
         echo "<input type='hidden' name='usuario_id' value='{$usuario->getUsuario_id()}'>";
-        echo "<input type='submit' value='Eliminar' class='button'>";
+        echo "<input type='submit' value='Eliminar' class='btn btn-borrar'>";
         echo "</form>";
         echo "</td>";
         echo "</tr>";

@@ -33,17 +33,18 @@ class UsuarioController {
         }
     }
 
-    private function login($username, $password) {
+    public function login($username, $password) {
         $usuario = new Usuario($this->db);
-        $usuario->setUsername($username);
-        $usuario->setPassword($password);
-
         $loggedInUser = $usuario->login($username, $password);
 
         if ($loggedInUser) {
             $_SESSION['username'] = $loggedInUser->getUsername();
             $_SESSION['usuario_id'] = $loggedInUser->getUsuario_id();
             $_SESSION['rol'] = $loggedInUser->getRol();
+
+            if (isset($loggedInUser->paciente_id)) {
+                $_SESSION['paciente_id'] = $loggedInUser->paciente_id;
+            }
 
             $this->redirectByRole($_SESSION['rol']); // Redirige según el rol
         } else {

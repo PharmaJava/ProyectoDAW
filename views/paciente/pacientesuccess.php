@@ -10,7 +10,7 @@
     <meta http-equiv="Expires" content="0">
 </head>
 <body>
-<div class="container">
+<div class="full-width-form">
     <?php
     session_start();
     // Redirecciona si no está logueado

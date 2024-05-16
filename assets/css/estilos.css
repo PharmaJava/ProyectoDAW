@@ -1,20 +1,15 @@
-body {
-    font-family: Arial, sans-serif;
+html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    font-family: Arial, sans-serif;
     background-image: url('img.jpg');
-    background-size: contain;
-    background-repeat: repeat;
+    background-size: cover;
+    background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
 }
+
 body::before {
     content: '';
     position: absolute;
@@ -22,26 +17,29 @@ body::before {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.3);  /* Ajusta la opacidad si es necesario */
     z-index: -1;
 }
 
-.full-page-form {
-    max-width: 600px;
-    margin: 50px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    overflow: auto;
 }
 
-.full-width-form {
-    max-width: 500px;
-    margin: 50px auto;
+.full-page-form, .full-width-form {
+    width: 90%;  /* Usar el 90% del ancho de la pantalla */
+    max-width: 600px;  /* Ancho máximo */
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;  /* Asegura que el padding no afecte el ancho total */
+    overflow: auto;  /* Permite el desplazamiento si el contenido es demasiado grande */
+    margin-top: 20px; /* Espacio adicional para el título */
 }
 
 .container {
@@ -51,9 +49,11 @@ body::before {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
+
 .title-container {
-    background-color: rgba(239, 241, 165, 0.9); 
+    background-color: rgba(244, 244, 241, 0.9); 
     padding: 20px 40px; 
     text-align: center;
     color: #333; 
@@ -61,10 +61,9 @@ body::before {
     font-size: 24px;
     font-weight: bold; 
     border-radius: 8px; 
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-top: 20px; /* Espacio adicional para el título */
 }
-
-
 
 .next-steps {
     margin-top: 20px;
@@ -87,15 +86,23 @@ body::before {
 
 form {
     margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;  /* Asegura que el padding no afecte el ancho total */
 }
 
 form label {
     display: block;
     margin-bottom: 5px;
+    font-weight: bold;
 }
 
 form input[type="text"],
 form input[type="password"],
+form input[type="number"],
+form input[type="date"],
 form textarea,
 form select,
 form button {
@@ -104,7 +111,7 @@ form button {
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box;
+    box-sizing: border-box;  /* Asegura que el padding no afecte el ancho total */
 }
 
 form button {
@@ -132,14 +139,10 @@ form button:hover {
 .btn:hover {
     background-color: #0056b3;
 }
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+
+.btn-eliminar {
+    background-color: #ff0000;  /* Rojo */
+    color: #fff;  /* Texto blanco */
 }
 
 h1 {
@@ -167,52 +170,69 @@ p {
 .button:hover {
     background-color: #0056b3;
 }
-
-
-.full-width-form {
-    width: 50%;
-    margin: 0 auto;
+/* Estilos para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
-form {
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+table tr:nth-child(even) {
     background-color: #f9f9f9;
 }
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-input[type="text"],
-input[type="number"],
-input[type="date"],
-select,
-textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-input[type="submit"],
+
+/* Estilos para los botones */
 .btn {
     display: inline-block;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    padding: 5px 10px;  /* Botones más pequeños */
     text-decoration: none;
-}
-input[type="submit"]:hover,
-.btn:hover {
-    background-color: #45a049;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    color: #fff;
+    margin-right: 5px;
+    font-size: 14px;  /* Fuente más pequeña */
+    border: none; /* Sin borde */
 }
 
-.btn-eliminar {
-    background-color: #ff0000; /* Rojo */
-    color: #fff; /* Texto blanco */
+.btn-modificar {
+    background-color: #28a745; /* Verde */
+}
+
+.btn-modificar:hover {
+    background-color: #218838;
+}
+.btn-editar:hover {
+    background-color: #218838;
+}
+.btn-borrar {
+    background-color: #dc3545; /* Rojo */
+}
+
+.btn-borrar:hover {
+    background-color: #c82333;
+}
+
+.btn-volver {
+    background-color: #007bff; /* Azul */
+}
+
+.btn-volver:hover {
+    background-color: #0056b3;
+}
+
+/* Alinear formularios en línea */
+.form-inline {
+    display: inline; 
+    margin: 0; /* Sin margen */
+    padding: 0; /* Sin padding */
 }

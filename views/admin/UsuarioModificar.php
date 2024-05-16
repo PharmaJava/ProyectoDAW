@@ -45,27 +45,23 @@
 
         if ($usuario_info) {
             ?>
+            
             <h2>Modificar Usuario</h2>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <input type="hidden" name="usuario_id" value="<?php echo $usuario_info->getUsuario_id(); ?>">
-                <div class="form-group">
-                    <label for="username">Nombre de Usuario:</label>
+                <div class="full-page-form">                    <label for="username">Nombre de Usuario:</label>
                     <input type="text" id="username" name="username" value="<?php echo $usuario_info->getUsername(); ?>" required>
                 </div>
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
+                <div class="full-page-form">                    <label for="nombre">Nombre:</label>
                     <input type="text" id="nombre" name="nombre" value="<?php echo $usuario_info->getNombre(); ?>" required>
                 </div>
-                <div class="form-group">
-                    <label for="apellidos">Apellidos:</label>
+                <div class="full-page-form">                    <label for="apellidos">Apellidos:</label>
                     <input type="text" id="apellidos" name="apellidos" value="<?php echo $usuario_info->getApellidos(); ?>" required>
                 </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
+                <div class="full-page-form">                    <label for="email">Email:</label>
                     <input type="email" id="email" name="email" value="<?php echo $usuario_info->getEmail(); ?>" required>
                 </div>
-                <div class="form-group">
-                    <label for="rol">Rol:</label>
+                <div class="full-page-form">                    <label for="rol">Rol:</label>
                     <select id="rol" name="rol" required>
                             <option value="admin" <?php echo $usuario_info->getRol() == 'admin' ? 'selected' : ''; ?>>Admin</option>
                             <option value="paciente" <?php echo $usuario_info->getRol() == 'paciente' ? 'selected' : ''; ?>>Paciente</option>
@@ -73,7 +69,7 @@
                         </select>
 
                         </div>
-                        <button type="submit" name="submit" class="btn">Modificar</button>
+                        <button type="submit" name="submit" class='btn btn-modificar'>Modificar</button>
                         </form>
                         <a href="AdminUsuarios.php" class="btn">Volver</a>
                         <?php

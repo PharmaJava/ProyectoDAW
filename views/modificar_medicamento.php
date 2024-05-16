@@ -64,7 +64,8 @@
                     <label for="uso">Uso:</label>
                     <input type="text" id="uso" name="uso" value="<?php echo htmlspecialchars($medicamento['uso']); ?>">
 
-                    <button type="submit" name="update" class="btn">Actualizar Medicamento</button>
+                    <button type="submit" name="update" class='btn btn-modificar'>Actualizar Medicamento</button>
+                    <a href="MedicamentosRegistrados.php" class="btn">Volver</a>
                 </form>
                 <?php
             } else {

@@ -71,7 +71,7 @@
                     <label for="uso_medicacion">Uso de la medicación:</label>
                     <input type="text" id="uso_medicacion" name="uso_medicacion" value="<?php echo $medicamento_info['uso_medicacion']; ?>">
                 </div>
-                <button type="submit" name="submit" class="btn">Modificar</button>
+                <button type="submit" name="submit" class='btn btn-modificar'>Modificar</button>
             </form>
             <a href="AdminOtrosMedicamentos.php" class="btn">Volver</a>
             <?php

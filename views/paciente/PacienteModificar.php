@@ -80,7 +80,7 @@
                     <label for="altura">Altura:</label>
                     <input type="text" id="altura" name="altura" value="<?php echo $paciente_info['altura']; ?>" required>
                 </div>
-                <button type="submit" name="submit" class="btn">Modificar</button>
+                <button type="submit" name="submit" class='btn btn-modificar'>Modificar</button>
             </form>
             <a href="PacientesRegistrados.php" class="btn">Volver</a>
             <?php

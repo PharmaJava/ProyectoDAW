@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Medicamento</title>
-    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/estilos.css">
 </head>
 <body>
     <div class="container">
         <?php
         require_once __DIR__ . '/../../config/db.php';
         require_once __DIR__ . '/../../models/Usuario.php';
+        require_once __DIR__ . '/../../models/medicamento.php';
 
         session_start();
 
@@ -64,7 +65,7 @@
                     <label for="uso">Uso:</label>
                     <input type="text" id="uso" name="uso" value="<?php echo htmlspecialchars($medicamento['uso']); ?>">
 
-                    <button type="submit" name="update" class="btn">Actualizar Medicamento</button>
+                    <button type="submit" name="update" class='btn btn-modificar'>Actualizar Medicamento</button>
                 </form>
                 <?php
             } else {
@@ -72,6 +73,7 @@
             }
         }
         ?>
+         <a href="MedicamentosRegistrados.php" class="btn btn-volver">Volver</a>
     </div>
 </body>
 </html>

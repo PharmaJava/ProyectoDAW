@@ -53,7 +53,7 @@
                         // Formulario para modificar el medicamento
                         echo "<form action='modificar_medicamento.php' method='post'>";
                         echo "<input type='hidden' name='medicamento_id' value='{$medicamento['medicamento_id']}'>";
-                        echo "<button type='submit' class='btn'>Modificar</button>";
+                        echo "<button type='submit' class='btn btn-modificar'>Modificar</button>";
                         echo "</form>";
                         // Formulario para borrar el medicamento
                         echo "<form action='borrar_medicamento.php' method='post'>";

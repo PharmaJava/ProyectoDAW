@@ -36,16 +36,16 @@
             echo "<td>{$paciente->getApellidos()}</td>";
             echo "<td>";
             // Formulario para editar paciente
-            echo "<form action='PacienteModificar.php' method='post' style='display: inline;'>";
+            echo "<form action='PacienteModificar.php' method='post'  class='form-inline'style='display: inline;'>";
             echo "<input type='hidden' name='paciente_id' value='{$paciente->getPaciente_id()}'>";
-            echo "<input type='submit' value='Editar' class='button'>";
+            echo "<input type='submit' value='Editar' class='btn btn-modificar'>";
             echo "</form> ";
 
             // Formulario para eliminar paciente
-            echo "<form action='borrar_paciente.php' method='post' style='display: inline;'>";
+            echo "<form action='borrar_paciente.php' method='post' class='form-inline' style='display: inline;'>";
             echo "<input type='hidden' name='paciente_id' value='{$paciente->getPaciente_id()}'>";
            // Dentro del bucle PHP para mostrar los pacientes
-            echo "<input type='submit' value='Eliminar' class='button btn-eliminar'>";
+            echo "<input type='submit' value='Eliminar' class='btn btn-borrar'>";
 
 
             echo "</form>";

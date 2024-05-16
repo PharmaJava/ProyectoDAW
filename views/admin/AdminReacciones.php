@@ -32,13 +32,13 @@
             echo "<td>".htmlspecialchars($reaccion['estado_actual'])."</td>";
             echo "<td>".htmlspecialchars($reaccion['otros_datos_interes'])."</td>";
             echo "<td>";
-            echo "<form action='modificarReaccion.php' method='POST' style='display: inline;'>";
+            echo "<form action='modificarReaccion.php' method='POST'  class='form-inline' style='display: inline;'>";
             echo "<input type='hidden' name='reaccion_id' value='".$reaccion['id']."'>";
-            echo "<button type='submit' name='modificar'>Modificar</button>";
+            echo "<button type='submit' name='modificar'class='btn btn-modificar'>Modificar</button>";
             echo "</form> ";
-            echo "<form action='eliminarReaccion.php' method='POST' style='display: inline;' onsubmit='return confirm(\"¿Está seguro de querer eliminar esta reacción?\");'>";
+            echo "<form action='eliminarReaccion.php' method='POST'  class='form-inline' style='display: inline;' onsubmit='return confirm(\"¿Está seguro de querer eliminar esta reacción?\");'>";
             echo "<input type='hidden' name='reaccion_id' value='".$reaccion['id']."'>";
-            echo "<button type='submit' name='eliminar'>Eliminar</button>";
+            echo "<button type='submit' name='eliminar'class='btn btn-borrar'>Eliminar</button>";
             echo "</form>";
             echo "</td>";
             echo "</tr>";

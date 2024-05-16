@@ -44,7 +44,7 @@
             <option value="otra">Otra</option>
         </select>
 
-        <input type="submit" name="submit" value="Registrar Medicamento">
+        <input type="submit" name="submit" class= "btn btn-modificar" value="Registrar Medicamento">
         <a href="pacientesuccess.php" class="btn">Volver</a>
     </form>
     

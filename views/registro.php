@@ -32,7 +32,7 @@
     </select>
     
     <input type="hidden" name="action" value="register">
-    <button type="submit" name="submit">Registrar</button>
+    <button type="submit" name="submit" class= "btn btn-modificar">Registrar</button>
     <a href="../index.php" class="btn">Volver</a>
   </form>
 </div>

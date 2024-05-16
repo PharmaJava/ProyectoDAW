@@ -43,7 +43,7 @@ require_once '../../models/Usuario.php';
             <label for="altura">Altura (cm):</label>
             <input type="text" id="altura" name="altura" required>
 
-            <input type="submit" name="submit" value="Registrar">
+            <input type="submit" name="submit" class= "btn btn-modificar"value="Registrar">
             <a href="pacientesuccess.php" class="btn">Volver</a>
         
         </form>

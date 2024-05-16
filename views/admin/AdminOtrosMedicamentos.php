@@ -27,13 +27,13 @@
             echo "<td>".htmlspecialchars($otro_medicamento['nombre_medicamento'])."</td>";
             echo "<td>".htmlspecialchars($otro_medicamento['id'])."</td>";
             echo "<td>";
-            echo "<form action='modificarOtrosMedicamentos.php' method='POST' style='display: inline;'>";
+            echo "<form action='modificarOtrosMedicamentos.php' method='POST' class='form-inline' style='display: inline;'>";
             echo "<input type='hidden' name='id' value='".$otro_medicamento['id']."'>";
-            echo "<button type='submit' name='modificar'>Modificar</button>";
+            echo "<button type='submit' name='modificar' class='btn btn-modificar'>Modificar</button>";
             echo "</form> ";
-            echo "<form action='eliminarOtrosMedicamentos.php' method='POST' style='display: inline;' onsubmit='return confirm(\"¿Está seguro de querer eliminar este medicamento?\");'>";
+            echo "<form action='eliminarOtrosMedicamentos.php' method='POST' class='form-inline' style='display: inline;' onsubmit='return confirm(\"¿Está seguro de querer eliminar este medicamento?\");'>";
             echo "<input type='hidden' name='id' value='".$otro_medicamento['id']."'>"; // Asegurarse de enviar el ID correcto
-            echo "<button type='submit' name='eliminar'>Eliminar</button>";
+            echo "<button type='submit' name='eliminar'class='btn btn-borrar'>Eliminar</button>";
             echo "</form>";
             echo "</td>";
             echo "</tr>";

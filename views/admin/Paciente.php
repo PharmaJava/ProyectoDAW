@@ -40,7 +40,7 @@ session_start();
         <label for="altura">Altura (cm):</label>
         <input type="text" id="altura" name="altura" required>
 
-        <input type="submit" name="submit" value="Registrar">
+        <input type="submit" name="submit"class='btn btn-modificar'value="Registrar">
         <a href="AdminDashboard.php" class="btn">Volver</a>
     </form>
 </div>

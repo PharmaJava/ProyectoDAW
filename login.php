@@ -12,18 +12,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $usuario = $usuarioModel->login($username, $password);
 
     if ($usuario) {
-        $_SESSION['username'] = $usuario->username; // Guarda el nombre de usuario en la sesión
-        $_SESSION['usuario_id'] = $usuario->usuario_id; // Guarda el ID del usuario en la sesión
-        $_SESSION['rol'] = $usuario->rol; // Guarda el rol del usuario en la sesión
+        $_SESSION['username'] = $usuario->getUsername(); // Usa el método getter
+        $_SESSION['usuario_id'] = $usuario->getUsuario_id(); // Usa el método getter
+        $_SESSION['rol'] = $usuario->getRol(); // Usa el método getter
         if (isset($usuario->paciente_id)) {
             $_SESSION['paciente_id'] = $usuario->paciente_id; // Guarda el paciente_id si está disponible
         }
 
         // Comprueba el rol del usuario y redirige según corresponda
-        if ($usuario->rol === 'admin') {
+        if ($usuario->getRol() === 'admin') {
             header("Location: views/admin/AdminDashboard.php");
             exit();
-        } elseif ($usuario->rol === 'paciente') {
+        } elseif ($usuario->getRol() === 'paciente') {
             header("Location: views/paciente/pacientesuccess.php");
             exit();
         } else {

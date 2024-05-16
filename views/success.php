@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../config/db.php';
 require_once '../models/Usuario.php';
 session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -12,7 +13,7 @@ session_start();
     <link rel="stylesheet" href="../assets/css/estilos.css">
 </head>
 <body>
-    <div class="container">
+    <div class="full-width-form">
     <?php if(isset($_SESSION['username']) && isset($_SESSION['usuario_id'])): ?>
     <h1>Bienvenido, <?php echo htmlspecialchars($_SESSION['username']); ?> (ID: <?php echo $_SESSION['usuario_id']; ?>)!</h1>
     <?php else: ?>

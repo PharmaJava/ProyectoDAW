@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Medicamento</title>
     <link rel="stylesheet" href="../assets/css/estilos.css">
 </head>
@@ -10,7 +11,7 @@
     <h1>Registrar Medicamento</h1>
     <form action="../controllers/MedicamentoController.php" method="post">
         <label for="paciente_id">ID del Paciente:</label>
-        <select id="paciente_id" name="paciente_id" required>
+        <select id="paciente_id" name="paciente_id" required></select>
 
         <label for="nombre_medicamento">Nombre del Medicamento:</label>
         <input type="text" id="nombre_medicamento" name="nombre_medicamento" required>
@@ -44,7 +45,7 @@
             <option value="otra">Otra</option>
         </select>
 
-        <input type="submit" name="submit" value="Registrar Medicamento">
+        <input type="submit" name="submit" class= "btn btn-modificar" value="Registrar Medicamento">
         <a href="success.php" class="btn">Volver</a>
     </form>
 </div>

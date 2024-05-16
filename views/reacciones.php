@@ -43,7 +43,7 @@
             <label for="otros_datos">Otros datos de interés:</label>
             <textarea id="otros_datos" name="otros_datos"></textarea>
 
-            <button type="submit" name="submit">Registrar Reacción</button>
+            <button type="submit" name="submit" class= "btn btn-modificar">Registrar Reacción</button>
             <a href="success.php" class="btn">Volver</a>
         </form>
     </div>

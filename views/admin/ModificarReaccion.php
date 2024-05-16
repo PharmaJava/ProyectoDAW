@@ -76,7 +76,7 @@
                     <label for="otros_datos_interes">Otros Datos de Interés:</label>
                     <textarea id="otros_datos_interes" name="otros_datos_interes"><?php echo $reaccion_info['otros_datos_interes']; ?></textarea>
                 </div>
-                <button type="submit" name="submit" class="btn">Modificar</button>
+                <button type="submit" name="submit"class='btn btn-modificar'>Modificar</button>
             </form>
             <a href="AdminReacciones.php" class="btn">Volver</a>
             <?php

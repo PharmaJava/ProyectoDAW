@@ -78,7 +78,6 @@ class Usuario {
     $this->rol = $rol;
   }
 
-
   public function save() {
     // Asumiendo que has sanitizado y validado los datos de entrada apropiadamente
     $username = $_POST['username'];
@@ -88,42 +87,67 @@ class Usuario {
     $email = $_POST['email'];
     $rol = $_POST['rol'];
 
-    // Preparar la sentencia SQL
     $sql = "INSERT INTO Usuarios (username, password, nombre, apellidos, email, rol) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $this->db->prepare($sql);
     if (!$stmt) {
         $_SESSION['register'] = 'failed';
-        header('Location: ../views/registro.php');
-        exit();
+        return false;
     }
 
-    // Vincular parámetros
     $stmt->bind_param('ssssss', $username, $password, $nombre, $apellidos, $email, $rol);
-
-    // Ejecutar la consulta
     $result = $stmt->execute();
     $stmt->close();
 
-    if ($result) {
-        // Si el registro es exitoso, inicia sesión automáticamente con los datos del nuevo usuario
-        $this->login($_POST['username'], $_POST['password']);
-        // Redirige al usuario según su rol
-        if ($rol === 'sanitario') {
-            header('Location: ../views/success.php');
-        } elseif ($rol === 'paciente') {
-            header('Location: ../views/paciente/pacientesuccess.php');
-        } else {
-            // Considera manejar otros roles o redirigir a una página por defecto
-            header('Location: ../views/paciente/pacientesuccess.php');
-        }
-        exit();
-    } else {
-        // Si hay un error en el registro, redirige de vuelta al formulario de registro
-        $_SESSION['register'] = 'failed';
-        header('Location: ../views/registro.php');
-        exit();
+    return $result;
+  }
+
+  public function login($username, $password) {
+    $sql = "SELECT u.*, p.paciente_id FROM Usuarios u LEFT JOIN Paciente p ON u.usuario_id = p.usuario_id WHERE u.username = ?";
+    $stmt = $this->db->prepare($sql);
+    if (!$stmt) {
+        echo "Error preparing statement: " . $this->db->error;
+        return false;
     }
+    $stmt->bind_param('s', $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $usuario = $result->fetch_assoc();
+
+    if ($usuario && (password_verify($password, $usuario['password']) || $password === $usuario['password'])) {
+        if ($password === $usuario['password']) {
+            $this->updatePasswordHash($usuario['usuario_id'], $password);
+        }
+        // Crear una instancia de Usuario y establecer sus propiedades
+        $usuarioObj = new Usuario();
+        $usuarioObj->setUsuario_id($usuario['usuario_id']);
+        $usuarioObj->setUsername($usuario['username']);
+        $usuarioObj->setPassword($usuario['password']);
+        $usuarioObj->setNombre($usuario['nombre']);
+        $usuarioObj->setApellidos($usuario['apellidos']);
+        $usuarioObj->setEmail($usuario['email']);
+        $usuarioObj->setRol($usuario['rol']);
+        if (isset($usuario['paciente_id'])) {
+            $usuarioObj->paciente_id = $usuario['paciente_id'];
+        }
+
+        $stmt->close();
+        return $usuarioObj;
+    }
+
+    $stmt->close();
+    return false;
 }
+
+  public function updatePasswordHash($usuario_id, $password) {
+    $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 4]);
+    $sql = "UPDATE Usuarios SET password = ? WHERE usuario_id = ?";
+    $stmt = $this->db->prepare($sql);
+    if ($stmt) {
+        $stmt->bind_param('si', $hash, $usuario_id);
+        $stmt->execute();
+        $stmt->close();
+    }
+  }
 
 public static function find($usuario_id) {
   $db = Database::connect();
@@ -207,44 +231,44 @@ public static function countAll() {
 }
 
 
-  public function login($username, $password) {
-    $sql = "SELECT u.*, p.paciente_id FROM Usuarios u LEFT JOIN Paciente p ON u.usuario_id = p.usuario_id WHERE u.username = ?";
-    $stmt = $this->db->prepare($sql);
-    if (!$stmt) {
-        echo "Error preparing statement: " . $this->db->error;
-        return false;
-    }
-    $stmt->bind_param('s', $username);
-    $stmt->execute();
-    $usuario = $stmt->get_result()->fetch_object();
+//   public function login($username, $password) {
+//     $sql = "SELECT u.*, p.paciente_id FROM Usuarios u LEFT JOIN Paciente p ON u.usuario_id = p.usuario_id WHERE u.username = ?";
+//     $stmt = $this->db->prepare($sql);
+//     if (!$stmt) {
+//         echo "Error preparing statement: " . $this->db->error;
+//         return false;
+//     }
+//     $stmt->bind_param('s', $username);
+//     $stmt->execute();
+//     $usuario = $stmt->get_result()->fetch_object();
 
-    if ($usuario) {
-        // Verificar si la contraseña es hash o no
-        if (password_verify($password, $usuario->password)) {
-            $stmt->close();
-            return $usuario; // Retorna el objeto usuario si el login es exitoso
-        } elseif ($password === $usuario->password) {
-            // La contraseña coincide directamente, actualizamos a hash
-            $this->updatePasswordHash($usuario->usuario_id, $password);
-            $stmt->close();
-            return $usuario; // Retorna el objeto usuario
-        }
-    }
-    $stmt->close();
-    return false; // Retorna falso si el login falla
-}
+//     if ($usuario) {
+//         // Verificar si la contraseña es hash o no
+//         if (password_verify($password, $usuario->password)) {
+//             $stmt->close();
+//             return $usuario; // Retorna el objeto usuario si el login es exitoso
+//         } elseif ($password === $usuario->password) {
+//             // La contraseña coincide directamente, actualizamos a hash
+//             $this->updatePasswordHash($usuario->usuario_id, $password);
+//             $stmt->close();
+//             return $usuario; // Retorna el objeto usuario
+//         }
+//     }
+//     $stmt->close();
+//     return false; // Retorna falso si el login falla
+// }
 
-  /// Método para actualizar la contraseña a hash
-public function updatePasswordHash($usuario_id, $password) {
-  $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 4]);
-  $sql = "UPDATE Usuarios SET password = ? WHERE usuario_id = ?";
-  $stmt = $this->db->prepare($sql);
-  if ($stmt) {
-      $stmt->bind_param('si', $hash, $usuario_id);
-      $stmt->execute();
-      $stmt->close();
-  }
-}
+//   /// Método para actualizar la contraseña a hash
+// public function updatePasswordHash($usuario_id, $password) {
+//   $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 4]);
+//   $sql = "UPDATE Usuarios SET password = ? WHERE usuario_id = ?";
+//   $stmt = $this->db->prepare($sql);
+//   if ($stmt) {
+//       $stmt->bind_param('si', $hash, $usuario_id);
+//       $stmt->execute();
+//       $stmt->close();
+//   }
+// }
 
 public function borrarUsuario($usuario_id) {
   $sql = "DELETE FROM Usuarios WHERE usuario_id = ?";

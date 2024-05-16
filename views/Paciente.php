@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../assets/css/estilos.css">
 </head>
 <body>
-    <div class="full-page-form">
+    <div    >
         <h1>Formulario de Registro de Paciente</h1>
         <form action="../controllers/PacienteController.php" method="post">
             <!-- Este input podría estar oculto si estás pasando el usuario_id directamente -->
@@ -34,7 +34,7 @@
             <label for="altura">Altura (cm):</label>
             <input type="text" id="altura" name="altura" required>
 
-            <input type="submit" name="submit" value="Registrar">
+            <input type="submit" name="submit" value="Registrar" class= "btn btn-modificar">
             <a href="success.php" class="btn">Volver</a>
         </form>
     </div>
