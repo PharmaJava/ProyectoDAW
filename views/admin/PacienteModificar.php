@@ -84,7 +84,7 @@
                 </div>
                 <button type="submit" name="submit" class='btn btn-modificar'>Modificar</button>
             </form>
-            <a href="PacientesRegistrados.php" class="btn">Volver</a>
+            <a href="AdminPacientes.php" class="btn">Volver</a>
             <?php
         } else {
             echo "<p>No se encontraron datos del paciente. Asegúrese de que el ID es correcto.</p>";
